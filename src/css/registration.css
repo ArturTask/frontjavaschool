@@ -1,0 +1,48 @@
+
+  #regCentral{
+    max-width: 500px;
+  }
+
+  #formRegistr {
+    -webkit-border-radius:  10px 10px 10px 10px;
+    border-radius: 10px 10px 10px 10px;
+    background: #fff;
+    padding: 30px;
+    width: 50%;
+    max-width: 400px;
+    position: relative;
+    padding: 0px;
+    text-align: center;
+  }
+
+  #loginExists{
+      color: rgb(255, 0, 0);
+  }
+
+  .goToLog{
+      margin-top: 10px;
+      display: inline-block;
+  }
+
+ 
+
+
+
+
+  /* NOTICE LOGIN AND PASSWORD INPUTS*/
+  /* you can find .login and .password classes in authPage.css used for login and password inputs*/
+
+  /* NOTICE REGISTRATION BUTTON*/
+  /* also you can find registr button in authPage.css look for .logOrReg class selector */
+
+  /* NOTICE INSCRIPTION UNDER SUBMIT BUTTON*/
+  /* css of logIn is also in authPage.css it is called .joinOrNot and .hid for animation search by class selector */
+  
+  
+  
+
+  
+
+  
+
+

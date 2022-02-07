@@ -1,0 +1,92 @@
+import React from "react";
+import { Navigate } from "react-router-dom";
+import Requests from "../HTTP/Requests";
+import "../css/authPage.css"
+import Logo from "../images/Logo.png"
+// import MainPage from "./MainPage";
+
+class AuthPage extends React.Component{
+    constructor(props){
+        super(props);
+        this.state = {
+            smth: "",
+            id: "",
+            role: "",
+            login: "",
+            password: ""
+        };
+        this.logMe = this.logMe.bind(this);
+    }
+
+// componentDidMount(){
+//     Requests.getUser().then((response)=>{
+//         this.setState({smth: response.data});
+//     }
+//     );
+// }
+
+logMe(e){
+    e.preventDefault(); //we need to asynchronously get the answer from server
+    Requests.postUserLogIn(document.getElementById("login").value,document.getElementById("password").value,
+    ()=>{window.location.reload();} //callback function reload to reload after we get our data
+    );
+    
+}
+
+    // render(){
+        
+
+    //     return(
+    //         <div>
+    //           lol
+    //           <h1>{this.state.smth}</h1>
+    //         </div>
+    //     );
+    // }
+
+    render(){
+
+        if (localStorage.getItem('isAuthorized')==1) {
+          return (<Navigate to="/adminMainPage"/>)
+        }
+        else if (localStorage.getItem('isAuthorized')==2) {
+            return (<Navigate to="/mainPage2"/>)
+          }
+          
+
+ 
+    return(
+        <div className="central fadeInDown">
+            {/* left side */}
+           <div id="ad" className="inline-div">
+               <h1 className="fadeIn first">JOIN THE LARGEST ART COMMUNITY IN THE WORLD</h1>
+
+               <h2 className="fadeIn second">You can do it just believe in yourself</h2>
+           </div>
+
+            {/* right side */}
+          <div id="formLog" className="inline-div">
+            <div className="fadeIn first">
+              <h2>Log In</h2>
+            </div>
+        
+            <form>
+              <input type="text-a" id="login" className="login fadeIn second" name="login" placeholder="login" required/>
+              <input type="password" id="password" className="password fadeIn third" name="password" placeholder="password" maxLength="10" required></input>
+              <div id="wrongLogin" className="hid">-</div>
+              <div>
+                <input type="submit" id="logIn" className="logInOrReg fadeIn fourth" value="Login" onClick={this.logMe}/>
+              </div>
+                <a className="goToRegistr fadeIn fourth">Don't have an account?</a><a id="join" className="joinOrNot goToRegistr fadeIn fourth" href="/registr">Join</a>
+            </form>
+  
+          </div>
+
+        </div>
+      );
+}
+
+}
+
+
+export default AuthPage;

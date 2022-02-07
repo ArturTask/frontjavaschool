@@ -1,0 +1,17 @@
+.pagination{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 3%;
+}
+.pagination a{
+    margin-left: 2px;
+}
+.active {
+    margin: 5px,2px;
+    background-color: rgb(118, 228, 118);
+}
+
+.disabled {
+    margin: 5px,2px;
+}
