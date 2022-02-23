@@ -1,15 +1,66 @@
 
 .top-menu {
-    padding: 1px;
+  padding: 1px;
   left: 0;
   width: 100%;
-  /* padding: 1px; */
-  /* height: 100%; */
-  background-color: #7585e2;  
+  /* background-color: #7585e2;   */
 }
-.menu-main a:hover{
-    background-color: #565677;
+
+.menu-main{
+    background: linear-gradient(145deg, rgba(16,255,0,1) 0%, rgba(16,121,9,1) 50%, rgba(2,0,36,1)  100%);
+    margin: 0;
+    padding: 0;
+    overflow: hidden; /* for #exit so the float block wont fall out of parent div*/
+    
+}
+.menu-main div{
+    display: inline-block;
+}
+
+#personalAccount{
+    float: left;
+    margin: auto;
+    padding: 15px;
+    background-color: rgba(19, 70, 27, 0.829);
+    border: 2px solid rgba(37, 146, 61, 0.829);
+    color:#ffffff;
+    font-weight : bolder;
+    border-radius: 0px 10px 10px 0px;
+}
+
+#mainPage{
+    display: inline-block;
+    margin-right: 100px;
+    font-weight:bolder;
+    color: rgb(0, 0, 0);
+    text-decoration-line: underline;
+    padding: 15px 50px;
+    background-color: rgba(19, 70, 27, 0.829);
+    border: 2px solid rgba(63, 236, 101, 0.829);
+    color:#ffffff;
+    border-radius: 10px;
+}
+
+
+#exit{
+    float: right;
+    text-align: center;
+    width: 60px;
+    margin-left: auto;
+    border-radius: 10px 0px 0px 10px;;
+    color: #ffffff;
+    background-color: rgba(19, 70, 27, 0.829);
+    border: 2px solid rgba(63, 236, 101, 0.829);
+    padding: 15px;
     transition: .3s linear;
+}
+
+
+#personalAccount:hover,#mainPage:hover, #exit:hover{
+    border-color: #077227;
+    background-color: #31f74c;
+    color: black;
+    transition: .7s linear;
 }
 .menu-main{
     margin-top: 5px;
@@ -18,19 +69,4 @@
     margin-left: 0;
     text-align: center;
 }
-.menu-main a {
-    text-align: center;
-    margin-top: 5px;
-    margin-left: 10px;
-    color: #ffffff;
-    display: inline-block;
-    /* padding: 10px, 20px; */
-    background-color: rgb(184, 184, 248);
-    border-bottom: 5px solid #5757a0;
-    padding: 15px 30px;
-    transition: .3s linear;
-}
 
-.menu-main li {
-    display: inline;
-}

@@ -19,7 +19,7 @@ class AuthPage extends React.Component{
     }
 
 // componentDidMount(){
-//     Requests.getUser().then((response)=>{
+//     Requests.getData().then((response)=>{
 //         this.setState({smth: response.data});
 //     }
 //     );
@@ -27,6 +27,7 @@ class AuthPage extends React.Component{
 
 logMe(e){
     e.preventDefault(); //we need to asynchronously get the answer from server
+    localStorage.setItem("userName",document.getElementById("login").value);
     Requests.postUserLogIn(document.getElementById("login").value,document.getElementById("password").value,
     ()=>{window.location.reload();} //callback function reload to reload after we get our data
     );
@@ -50,7 +51,7 @@ logMe(e){
           return (<Navigate to="/adminMainPage"/>)
         }
         else if (localStorage.getItem('isAuthorized')==2) {
-            return (<Navigate to="/mainPage2"/>)
+            return (<Navigate to="/customerMainPage"/>)
           }
           
 
@@ -59,9 +60,11 @@ logMe(e){
         <div className="central fadeInDown">
             {/* left side */}
            <div id="ad" className="inline-div">
-               <h1 className="fadeIn first">JOIN THE LARGEST ART COMMUNITY IN THE WORLD</h1>
+               <h1 className="fadeIn first">JOIN THE BEST mobile operator IN THE WORLD</h1>
 
-               <h2 className="fadeIn second">You can do it just believe in yourself</h2>
+               {/* <div>{this.state.smth}</div> */}
+
+               <h2 className="fadeIn second">Explore universe with us</h2>
            </div>
 
             {/* right side */}

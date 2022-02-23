@@ -3,11 +3,13 @@ import Pagination from '../modules/Pagination';
 import { Navigate } from "react-router-dom";
 import '../css/mainPage.css'
 import Header from "../modules/Header";
+import Requests from "../HTTP/Requests";
 
-class MainPage extends React.Component{
+class CustomerMainPage extends React.Component{
     constructor(props){
         super(props);
         this.state={
+            smth:"",
             people:[{name:'a', age:2},{name: 'b', age:9},{name:'c', age:2},{name:'d', age:3},{name:'s',age:9 },{name:"kk",age: 0},{name:"kk",age: 0},{name:"kk",age: 0}],
             totalElems: 0,
             elementsPerPage: 5,
@@ -16,6 +18,13 @@ class MainPage extends React.Component{
         this.paginate = this.paginate.bind(this);
         this.exit = this.exit.bind(this);
     }
+
+// componentDidMount(){
+//     Requests.getData().then((response)=>{
+//         this.setState({smth:response.data});
+//     });
+// }
+
 
     exit(){
         localStorage.setItem("isAuthorized",0)
@@ -46,6 +55,7 @@ class MainPage extends React.Component{
                 </div> */}
                 <Header></Header>
                 <a href="/" id="exit" onClick={this.exit}>exit</a>
+                {/* <div>{this.state.smth}</div> */}
                 <table className="tablePeople" >
                 <tr>
                     <th>Name</th>
@@ -71,4 +81,4 @@ class MainPage extends React.Component{
     }
 }
 
-export default MainPage;
+export default CustomerMainPage;

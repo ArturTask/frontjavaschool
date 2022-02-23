@@ -1,0 +1,41 @@
+#personalAccountBody{
+    background-color: rgba(255, 255, 255, 1);
+    height: 400px;
+    width: 400px;
+    margin-top: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    position: relative;
+    padding: 0px;
+    display: flex;
+    justify-content: center;
+    border-radius: 15px;
+}
+
+#personalAccountBody *{
+    display: block;
+}
+
+.userInfo{
+    margin-top: 10px;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 16px;
+    font-weight:bolder;
+    color: rgb(0, 0, 0);
+    text-align: center;
+}
+
+
+
+#personalAccountBody img{
+    position: relative;
+    width: 100px;
+    height: 100px;
+    margin-top: 10px;
+    margin-bottom: auto;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    /* margin: auto; */
+}

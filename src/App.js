@@ -6,8 +6,9 @@ import React from 'react';
 import {Route, Routes, Navigate, Outlet} from 'react-router-dom';
 import AuthPage from "./pages/AuthPage.js";
 import AdminMainPage from './pages/AdminMainPage.js';
-import MainPage2 from './pages/MainPage2.js';
+import CustomerMainPage from './pages/CustomerMainPage.js';
 import Registration from './pages/Registration.js';
+import PersonalAccount from './pages/PersonalAccount';
 
 
 
@@ -21,7 +22,8 @@ function App() {
       <Route path="/registr" element={<Registration/>}></Route>
       {/* <Route element={<AuthenticatedRoute/>}> */}
         <Route path='/adminMainPage' element={<AdminMainPage/>}/>
-        <Route path='/mainPage2' element={<MainPage2/>}/>
+        <Route path='/customerMainPage' element={<CustomerMainPage/>}/>
+        <Route path='/personalAccount' element={<PersonalAccount/>}/>
       {/* </Route> */}
     </Routes>
   );

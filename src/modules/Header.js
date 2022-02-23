@@ -5,7 +5,7 @@ class Header extends React.Component{
     constructor(props){
         super(props);
         this.state={
-            name:"sss"
+            name:localStorage.getItem("userName")
         };
     }
     exit(){
@@ -16,14 +16,15 @@ class Header extends React.Component{
     render(){
         return(
             <div>
-                <nav className="top-menu">
-                <ul class="menu-main">
-                    <li id = 'personalAcc'><a href="/account" className="current">{this.state.name}</a></li>
-                    <li id = 'main'><a href="/adminMainPage">Главная страница</a></li>
-                    <li id = 'exit'><a href="/" onClick={this.exit}>Выход</a></li>
-                </ul>
-             </nav> 
-            </div>
+                <div className="top-menu">
+                </div>
+                <div class="menu-main">
+                    <a id="personalAccount" href="/personalAccount">Personal account</a>
+                    {/* <div id = 'userName' className="current">{this.state.name}</div> */}
+                    <a id="mainPage" href="/customerMainPage">Main Page</a>
+                    <a id = 'exit' href="/" onClick={this.exit}>Exit</a>
+                </div>
+             </div> 
         );
     }
 }

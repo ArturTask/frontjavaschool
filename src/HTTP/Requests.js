@@ -1,11 +1,12 @@
 import axios from 'axios';
-const USERSURL = "http://localhost:8080/BackendJavaSchool/auth/users"
-const LOGINURL = "http://localhost:8080/BackendJavaSchool/auth/logIn"
-const REGURL = "http://localhost:8080/BackendJavaSchool/auth/reg"
+const SOMEURL = "http://localhost:8080/BackendJavaSchool/proba/data";
+const LOGINURL = "http://localhost:8080/BackendJavaSchool/auth/log_in";
+const REGURL = "http://localhost:8080/BackendJavaSchool/auth/reg";
+const GETALLUSERSURL = "http://localhost:8080/BackendJavaSchool/manage/users";
 
 class Requests{
-    getUser(){
-        return axios.get(USERSURL);
+    getData(){
+        return axios.get(SOMEURL);
     }
 
     
@@ -19,18 +20,22 @@ class Requests{
      
         return axios.post(LOGINURL, user).then((response)=>{
 
-            if(response.data.role=="ROLE_ADMIN"){
+            if(response.data.role=="ADMIN"){
                 localStorage.setItem("isAuthorized",1);
+                localStorage.setItem("userRole","Admin");
                 reloadPage();
             }
-            else if(response.data.role =="ROLE_CUSTOMER"){
-                localStorage.setItem("isAuthorized",2);        
+            else if(response.data.role =="CUSTOMER"){
+                localStorage.setItem("isAuthorized",2);
+                localStorage.setItem("userRole","Customer");
                 reloadPage();
             }
             else{
                 document.getElementById("wrongLogin").innerHTML = "Wrong Login or Password";
                 document.getElementById("wrongLogin").className = "fadeIn";
             }
+            localStorage.setItem("userId",response.data.id);
+            localStorage.setItem("token",response.data.token);
             // reloadPage();
         });
     }
@@ -54,6 +59,10 @@ class Requests{
             }
 
         });
+    }
+
+    getAllUsers(){
+        return axios.get(GETALLUSERSURL);
     }
 }
 

@@ -30,6 +30,7 @@
     background-color: #47d45ed0;
     background-repeat: no-repeat;
     border-radius: 10px 0px 0px 10px;
+    background: linear-gradient(145deg, rgba(16,255,0,1) 0%, rgba(16,121,9,1) 50%, rgba(2,0,36,1)  100%);
     
   }
 
@@ -37,10 +38,21 @@
     z-index: 1;
     font-size: 40px;
     margin-top: 80px;
+    /* make the background text sized and make text transparent to see the background through */
+    background: linear-gradient(145deg, #000000 0%, #214761 50%, #040804);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
   }
 
   #ad h2{
-      margin-top: 160px;
+    margin-top: 160px;
+    color: rgb(215, 248, 196);
+    /* make the background text sized and make text transparent to see the background through */
+    background: linear-gradient(45deg, #6c81c5 20%, #dcd9ee 50%, #6794d8 80%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
   }
 
   

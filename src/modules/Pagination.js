@@ -10,7 +10,7 @@ const Pagination = ({ elementsPerPage, totalElements, paginate}) => {
 
     function changePage(e) {
       var currentElementId = e.target.id;
-      var elements = document.querySelectorAll(".pagination a");
+      var elements = document.querySelectorAll(".pages a");
       elements.forEach(element => {
         element.className = "disabled"; // Удаляем active у всех элементов
     });
@@ -22,14 +22,16 @@ const Pagination = ({ elementsPerPage, totalElements, paginate}) => {
     // alert(pageNumbers);
     
     return (
-      <div class="pagination">
-          <a class="active" id ="1" onClick={changePage} href="#">1</a>
-        {
-          pageNumbers.map(number => 
-            <a class="disabled" id ={number} onClick={changePage} href="#">{number}</a>
-            )
-        }
-        
+      <div id="pagesDiv">
+        <div class="pages">
+            <a class="active" id ="1" onClick={changePage} href="#">1</a>
+          {
+            pageNumbers.map(number => 
+              <a class="disabled" id ={number} onClick={changePage} href="#">{number}</a>
+              )
+          }
+          
+        </div>
       </div>
     )
 }
