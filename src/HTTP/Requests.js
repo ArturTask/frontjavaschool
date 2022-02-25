@@ -1,15 +1,22 @@
 import axios from 'axios';
+const config = {
+    headers: { 
+        "Authorization": "Bearer " + localStorage.getItem("token") 
+    }
+};
 const SOMEURL = "http://localhost:8080/BackendJavaSchool/proba/data";
 const LOGINURL = "http://localhost:8080/BackendJavaSchool/auth/log_in";
 const REGURL = "http://localhost:8080/BackendJavaSchool/auth/reg";
 const GETALLUSERSURL = "http://localhost:8080/BackendJavaSchool/manage/users";
+const ADDTARIFURL = "http://localhost:8080/BackendJavaSchool/tariff/add_new";
 
 class Requests{
+    //test
     getData(){
         return axios.get(SOMEURL);
     }
 
-    
+    //AUTHORIZATION
     postUserLogIn(login,password,reloadPage){
         const user = {
             id: null,
@@ -61,8 +68,14 @@ class Requests{
         });
     }
 
+    //FOR ADMIN GET SOME INFO
     getAllUsers(){
-        return axios.get(GETALLUSERSURL);
+         
+        return axios.get(GETALLUSERSURL,config);
+    }
+
+    postAddTariff(tarif){
+        return axios.post(ADDTARIFURL,tarif,config);
     }
 }
 

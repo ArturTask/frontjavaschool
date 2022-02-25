@@ -7,6 +7,11 @@ import '../css/mainPage.css'
 import TableTariffs from "../modules/adminModules/TableTariffs.js"
 import TableUsers from "../modules/adminModules/TableUsers.js"
 import TableContracts from "../modules/adminModules/TableContracts.js";
+import ModalWindow from "../modules/ModalWindow";
+import ModalTariff from "../modules/adminModules/ModalTariff";
+import $ from "jquery";
+import ModalUser from "../modules/adminModules/ModalUser";
+import ModalEditTariff from "../modules/adminModules/ModalEditTariff";
 
 class MainPage extends React.Component{
     constructor(props){
@@ -16,15 +21,18 @@ class MainPage extends React.Component{
             totalElems: 0,
             elementsPerPage: 5,
             currentPage: 1,
-            option:0,
-            info:[],
-            currInfo:[],
-            head:[],
-            optionId:""
+            optionId:"",
+            showModalWindow:false,
+            body:""
         };
         this.paginate = this.paginate.bind(this);
         this.exit = this.exit.bind(this);
         this.chooseOption=this.chooseOption.bind(this);
+        this.onClose = this.onClose.bind(this);
+        this.refresh = this.refresh.bind(this);
+        this.displayAddTariff = this.displayAddTariff.bind(this);
+        this.displayUserEdit = this.displayUserEdit.bind(this);
+        this.displayEditTariff = this.displayEditTariff.bind(this);
     }
 
     componentDidMount(){
@@ -43,12 +51,11 @@ class MainPage extends React.Component{
     chooseOption(e){ //chose what you want to do now (for admin)
         document.getElementById("pagesDiv").style.display="";
         const optionId = e.target.id;    
-        let dataFromServer = [];
-        let currentHead=[];
 
         
         if(optionId=="adminOptionTariffs"){
             this.setState({optionId:"adminOptionTariffs"})
+
         }
         else if(optionId=="adminOptionUsers"){
             this.setState({optionId:"adminOptionUsers"})
@@ -59,6 +66,30 @@ class MainPage extends React.Component{
         }
     }
 
+    onClose(){ 
+        this.setState({showModalWindow:false})
+        // window.location.reload();
+    }
+
+    refresh(){
+        this.setState({showModalWindow:false})
+        window.location.reload();
+    }
+
+    displayAddTariff(){ 
+        this.setState({showModalWindow:true})
+        this.setState({body: <ModalTariff refresh={this.refresh}/>})
+    }
+
+    displayEditTariff(tariffId,tariffTitle,tariffDescription){ 
+        this.setState({showModalWindow:true})
+        this.setState({body: <ModalEditTariff refresh={this.refresh} tariffId={tariffId} title={tariffTitle} description={tariffDescription}/>})
+    }
+
+    displayUserEdit(userId,userName){ 
+        this.setState({showModalWindow:true});
+        this.setState({body:<ModalUser refresh={this.refresh} userId={userId} userName={userName}/>})
+    }
 
     render(){
         let currTable;
@@ -73,10 +104,10 @@ class MainPage extends React.Component{
         
         //choose the table you want to see
         if(this.state.optionId=="adminOptionTariffs"){
-            currTable = <TableTariffs/>
+            currTable = <TableTariffs display={this.displayAddTariff} displayEdit={this.displayEditTariff}/>
         }
         else if(this.state.optionId=="adminOptionUsers"){
-            currTable = <TableUsers/>
+            currTable = <TableUsers display={this.displayUserEdit}/>
         }
         else if(this.state.optionId=="adminOptionContracts"){
             currTable = <TableContracts/>
@@ -90,90 +121,18 @@ class MainPage extends React.Component{
 
         return(
             <div>
-                {/* <div className="popUpWindow">
-                    here we display some info from table
-                </div> */}
                 <Header></Header>
                 <div id="adminOptions">
                     <a id="adminOptionTariffs" href="#" onClick={this.chooseOption}>Manage tariffs</a>
                     <a id="adminOptionUsers" href="#" onClick={this.chooseOption}>Manage users</a>
                     <a id="adminOptionContracts" href="#" onClick={this.chooseOption}>Manage contracts</a>
                 </div>
+                {(this.state.showModalWindow) ? <ModalWindow onClose={this.onClose} body={this.state.body} />:<div></div>}
                 <div id="adminDivForTable">
-                {currTable}
+                    {currTable}
+                    <div id="lol"></div>
 
-                {/* <table id="tableTariffs" className="tableCustomers" >
-                <thead>
-                    <tr>
-                        {this.state.head.map(elem=>
-                            <th>{elem}</th>
-                        )}
-                    </tr>
-                </thead>
-                <tbody>
-                    {
-                        this.state.info.map(
-                            tariff =>
-                            <tr > 
-                                <td >{tariff["id"]}</td>
-                                <td >{tariff["title"]}</td>
-                                <td >{tariff["description"]}</td>
-                            </tr>
-                        )
-                    }
-                    
-                </tbody>
-            </table>
-
-            <table id="tableUsers" className="tableCustomers" >
-                <thead>
-                    <tr>
-                        {this.state.head.map(elem=>
-                            <th>{elem}</th>
-                        )}
-                    </tr>
-                </thead>
-                <tbody>
-                    {
-                        this.state.info.map(
-                            currentUser =>
-                            <tr > 
-                                <td >{currentUser["id"]}</td>
-                                <td >{currentUser["login"]}</td>
-                            </tr>
-                        )
-                    }
-                    
-                </tbody>
-
-            </table>
-
-            <table id="tableContracts" className="tableCustomers" >
-                <thead>
-                    <tr>
-                        {this.state.head.map(elem=>
-                            <th>{elem}</th>
-                        )}
-                    </tr>
-                </thead>
-                <tbody>
-                    {
-                        this.state.info.map(
-                            contract =>
-                            <tr > 
-                                <td >{contract["id"]}</td>
-                                <td >{contract["phoneNumber"]}</td>
-                                <td >{contract["user"]}</td>
-                            </tr>
-                        )
-                    }
-                    
-                </tbody>
-
-            </table> */}
-
-
-            </div>
+                </div>
                 <Pagination elementsPerPage={this.state.elementsPerPage} totalElements={this.state.people.length} paginate={this.paginate}/>
             </div>
         );

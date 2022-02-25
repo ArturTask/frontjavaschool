@@ -1,18 +1,4 @@
 
-.popUpWindow{
-    display: none;
-    height: 100%;
-    width: 100%;
-    background: rgba(102, 102, 102, 0.5);
-
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    margin: auto;
-}
-
 /* navigation for admin */
 
 #adminOptions{
@@ -61,18 +47,43 @@
 	text-align: center;
 }
 
-.tableCustomers tr td:first-child { /* for id */
+.tableCustomers tr td:first-child { /* for id - all tables*/
 	width: 10px
+}
+
+#tableTariffs tr td:nth-child(2){ /*for table tariffs*/
+	width: 30%	
+}
+
+#tableTariffs tr td:nth-child(3){
+	width: 70%	
 }
 
 #tableUsers tr td:nth-child(2) {  /* for login */
 	width: 100%	
 }
 
+#tableContracts tr td:nth-child(2){ /* for contracts */
+	width: 50%;
+}
+
+#tableContracts tr td:nth-child(3){
+	width: 50%;
+}
+
+
 .tableCustomers thead tr {
 	color: #000000;
 	font-weight: bold;
 	background: transparent;
+}
+
+.tableCustomers thead tr th{
+	padding: 10px;
+}
+
+#tableTariffs thead tr th{
+	padding: 0;
 }
 
 /* border-radius for table*/
@@ -88,17 +99,29 @@
 .tableCustomers tr:last-child td:last-child {
 	border-bottom-right-radius: 10px;
 }
-
+/* border-radius for table*/
 
 .tableCustomers tbody tr td {
 	border: 1px solid #2e82c3;
 	background: #cbdfef;
 }
-.tableCustomers tbody tr:hover td, #adminOptions a:hover{
+.tableCustomers tbody tr:hover td, #adminOptions a:hover, .tableCustomers button:hover{
 	background: #147aeeb6;
 	 transition-duration: 0.4s;
 }
 
-.tableCustomers *{
+.tableCustomers td{
 	padding: 10px 15px;
 }
+
+.tableCustomers button{
+	display: inline-block;
+	margin-top: 1px;
+	margin-right: auto;
+	padding: 10px;
+	background-color: #cbdfef;
+	border-radius: 5px;
+	border: 1px solid #147aeeb6;
+}
+
+

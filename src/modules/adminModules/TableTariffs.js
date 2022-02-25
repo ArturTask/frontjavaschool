@@ -1,4 +1,5 @@
 import react from "react";
+import $ from "jquery";
 
 class TableTariffs extends react.Component{
     constructor(props){
@@ -7,6 +8,16 @@ class TableTariffs extends react.Component{
             head:["Id","Title","Description"],
             info:[{id:1,title:"MegaSUPERBUPER",description:"vasya"}]
         }
+        this.showModalTariff = this.showModalTariff.bind(this);
+    }
+
+    showModalTariff(e){
+        var closestTr = $(e.target).closest("tr");
+        var currentTariffId = closestTr.find(".currentTariffId").attr("currentTariffId");
+        var currentTariffTitle = closestTr.find(".currentTariffTitle").text();
+        var currentTariffDescription = closestTr.find(".currentTariffDescription").text();
+
+        this.props.displayEdit(currentTariffId,currentTariffTitle,currentTariffDescription);
     }
 
     render(){
@@ -17,6 +28,7 @@ class TableTariffs extends react.Component{
                     {this.state.head.map(elem=>
                         <th>{elem}</th>
                     )}
+                    <th><button onClick={this.props.display}>add</button></th>
                 </tr>
             </thead>
             <tbody>
@@ -24,9 +36,10 @@ class TableTariffs extends react.Component{
                     this.state.info.map(
                         tariff =>
                         <tr > 
-                            <td >{tariff["id"]}</td>
-                            <td >{tariff["title"]}</td>
-                            <td >{tariff["description"]}</td>
+                            <td className="currentTariffId" currentTariffId={tariff["id"]}>{tariff["id"]}</td>
+                            <td className="currentTariffTitle">{tariff["title"]}</td>
+                            <td className="currentTariffDescription">{tariff["description"]}</td>
+                            <button onClick={this.showModalTariff}>edit</button>
                         </tr>
                     )
                 }
