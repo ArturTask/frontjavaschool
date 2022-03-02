@@ -9,6 +9,10 @@ const LOGINURL = "http://localhost:8080/BackendJavaSchool/auth/log_in";
 const REGURL = "http://localhost:8080/BackendJavaSchool/auth/reg";
 const GETALLUSERSURL = "http://localhost:8080/BackendJavaSchool/manage/users";
 const ADDTARIFURL = "http://localhost:8080/BackendJavaSchool/tariff/add_new";
+const GETALLTARIFFSURL = "http://localhost:8080/BackendJavaSchool/tariff/get_all_tariffs";
+const GETTARIFFBYID = "http://localhost:8080/BackendJavaSchool/tariff/find_tariff_";
+const UPDATETARIFFBYID = "http://localhost:8080/BackendJavaSchool/tariff/update_tariff";
+const DELETETARIFF = "http://localhost:8080/BackendJavaSchool/tariff/delete_";
 
 class Requests{
     //test
@@ -76,6 +80,22 @@ class Requests{
 
     postAddTariff(tarif){
         return axios.post(ADDTARIFURL,tarif,config);
+    }
+
+    getAllTariffs(){
+        return axios.get(GETALLTARIFFSURL,config);
+    }
+
+    getTariffById(tariffId){
+        return axios.get(GETTARIFFBYID+tariffId,config);
+    }
+
+    postUpdateTariff(tariff){
+        return axios.post(UPDATETARIFFBYID,tariff,config);
+    }
+
+    deleteTariff(id){
+        return axios.delete(DELETETARIFF+id,config);
     }
 }
 

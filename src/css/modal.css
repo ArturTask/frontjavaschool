@@ -37,11 +37,12 @@
 
 .content{
     width: 600px;
-    height: 400px;
+    /* height: 400px; */
+    padding: 40px 0px;
     margin-top: 60px;
     margin-left: auto;
     margin-right: auto;
-    background-color: aliceblue;
+    background-color: #ffffff;
     justify-content: center;
     align-items: center;
     border-radius: 10px;
@@ -59,9 +60,9 @@
 /* Can be found inside modalWindow.js */
 
 
-/* Admin modals */
+/* ADMIN modals */
 
-.modalBody{ /* for all */
+.modalBody{ /* for all modals */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -69,14 +70,90 @@
     margin-top: 10px;
 }
 
+.inputModal{/* for input fields in modal */
+    display:block;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 5px 5px 5px 5px;
+    text-align: center;
+    background-color: #e7e2e2;
+    color: #0d0d0d;
+    padding: 5px 10px;
+    font-size: 16px;
+    border: 2px solid #fff;
+
+}
+.inputModal:focus, .inputModal:focus{
+    border: 2px solid #f6f6f6;
+    background-color: #ffffff;
+    -webkit-transition: border-bottom 1s;
+    transition: border-bottom 1s;
+    border-bottom: 2px solid #2beef5e0;
+    /* border-bottom: 2px solid #1d863491; */
+    
+  }
+
 .submitModal{ /* submit button for all */
-    padding: 5px;
+    padding: 10px 90px;
+    font-size: 16px;
     border-radius: 5px;
     border: 1px solid #45dfcadd;
+    background-color: rgb(81, 229, 248);
 }
 
+/* TARIFF Modal */
 .modal #tariffTitle{
-    margin-top: 50%;
+    margin-top: 20px;
 }
 
-/* Admin modals */
+#addOptions *{
+    display: inline-block;
+}
+
+#addOptions .optionId{
+    /* background-color: rgb(81, 229, 248); */
+    border-radius: 5px 0px 0px 5px;
+    min-width: 20px;
+}
+
+.oneOption {
+    background-color: rgba(81, 229, 248, 0.664);
+    border-radius: 10px;
+}
+
+.oneOption *{
+    display: inline;
+    margin: 5px;
+}
+
+/* TARIFF Modal */
+
+/* EDIT TARIFF MODAL */
+
+.deleteOptionButton{
+    justify-self: center;
+    text-align: center;
+}
+
+
+#deleteTariffButton{
+    display: flex;
+    margin-top: 0px;
+    margin-bottom: auto;
+    margin-left: auto;
+    margin-right: 20px;
+    padding: 10px;
+    border-radius: 10px;
+    border: 1px solid #f6f6f6;
+    font-weight: bolder;
+}
+
+#deleteTariffButton:hover{
+    border: 1px solid #0d0d0d;
+    background-color: #ff1919bd;
+    transition: 1s ease-in-out;
+}
+
+/* EDIT TARIFF MODAL */
+
+/* ADMIN modals */

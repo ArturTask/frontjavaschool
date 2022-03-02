@@ -1,5 +1,6 @@
 import react from "react";
 import $ from "jquery";
+import Requests from "../../HTTP/Requests";
 
 class TableTariffs extends react.Component{
     constructor(props){
@@ -9,6 +10,21 @@ class TableTariffs extends react.Component{
             info:[{id:1,title:"MegaSUPERBUPER",description:"vasya"}]
         }
         this.showModalTariff = this.showModalTariff.bind(this);
+    }
+
+    componentDidMount(){
+        let serverData = [];
+        Requests.getAllTariffs().then((response)=>{
+            response.data.map(tariff=>{
+                let currTariff = {
+                    id:tariff.id,
+                    title:tariff.title,
+                    description:tariff.description
+                }
+                serverData.push(currTariff)
+            });
+            this.setState({info: serverData});
+        });
     }
 
     showModalTariff(e){
