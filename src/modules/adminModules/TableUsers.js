@@ -1,15 +1,20 @@
 import react from "react";
 import Requests from "../../HTTP/Requests";
 import $ from 'jquery'
+import Pagination from '../Pagination.js';
 
 class TableUsers extends react.Component{
     constructor(props){
         super(props)
         this.state={
             head:["Id","Login"],
-            info:[]
+            info:[],
+            totalElements: 0,
+            elementsPerPage: 5,
+            currentPage: 1
         }
         this.makeMeHappy = this.makeMeHappy.bind(this);
+        this.paginate = this.paginate.bind(this);
     }
 
     componentDidMount(){
@@ -22,7 +27,7 @@ class TableUsers extends react.Component{
                 }
                 serverData.push(currentUser)
             });
-            this.setState({info: serverData});
+            this.setState({info: serverData,totalElements:serverData.length});
         });
     }
 
@@ -41,29 +46,40 @@ class TableUsers extends react.Component{
     
     }
 
+    paginate = (pageNumber) => {
+        this.setState({currentPage: pageNumber})
+    }
+
     render(){
+        const lastElemIdx = this.state.elementsPerPage*this.state.currentPage;
+        const firstElemIdx = lastElemIdx-this.state.elementsPerPage;
+        const currInfo = this.state.info.slice(firstElemIdx,lastElemIdx);
+
         return(
-        <table id="tableUsers" className="tableCustomers" >
-            <thead>
-                <tr>
-                    {this.state.head.map(elem=>
-                        <th>{elem}</th>
-                    )}
-                </tr>
-            </thead>
-            <tbody>
-                {
-                    this.state.info.map(
-                        currentUser =>
-                        <tr > 
-                            <td className="currentUserId" userId={currentUser["id"]}>{currentUser["id"]}</td>
-                            <td className="currentUserName">{currentUser["login"]}</td>
-                            <button id="showUser" onClick={this.makeMeHappy}>edit</button>
-                        </tr>
-                    )
-                }
-            </tbody>
-        </table>
+        <div>
+            <table id="tableUsers" className="tableCustomers" >
+                <thead>
+                    <tr>
+                        {this.state.head.map(elem=>
+                            <th>{elem}</th>
+                        )}
+                    </tr>
+                </thead>
+                <tbody>
+                    {
+                        currInfo.map(
+                            currentUser =>
+                            <tr > 
+                                <td className="currentUserId" userId={currentUser["id"]}>{currentUser["id"]}</td>
+                                <td className="currentUserName">{currentUser["login"]}</td>
+                                <button id="showUser" onClick={this.makeMeHappy}>edit</button>
+                            </tr>
+                        )
+                    }
+                </tbody>
+            </table>
+            <Pagination elementsPerPage={this.state.elementsPerPage} totalElements={this.state.totalElements} paginate={this.paginate}/>
+        </div>
         );
     }
 }

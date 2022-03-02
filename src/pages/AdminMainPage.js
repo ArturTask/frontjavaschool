@@ -17,15 +17,11 @@ class MainPage extends React.Component{
     constructor(props){
         super(props);
         this.state={
-            people:[{name:'a', age:2},{name: 'b', age:9},{name:'c', age:2},{name:'d', age:3},{name:'s',age:9 },{name:"kk",age: 0},{name:"kk",age: 0},{name:"kk",age: 0}],
-            totalElems: 0,
-            elementsPerPage: 5,
-            currentPage: 1,
             optionId:"",
             showModalWindow:false,
             body:""
         };
-        this.paginate = this.paginate.bind(this);
+        // this.paginate = this.paginate.bind(this);
         this.exit = this.exit.bind(this);
         this.chooseOption=this.chooseOption.bind(this);
         this.onClose = this.onClose.bind(this);
@@ -35,21 +31,12 @@ class MainPage extends React.Component{
         this.displayEditTariff = this.displayEditTariff.bind(this);
     }
 
-    componentDidMount(){
-        document.getElementById("pagesDiv").style.display="none";
-    }
-
-
-    paginate = (pageNumber) => {
-        this.setState({currentPage: pageNumber})
-    }
-
     exit(){
         localStorage.setItem("isAuthorized",0)
     }
 
     chooseOption(e){ //chose what you want to do now (for admin)
-        document.getElementById("pagesDiv").style.display="";
+        // document.getElementById("pagesDiv").style.display="";
         const optionId = e.target.id;    
 
         
@@ -113,12 +100,6 @@ class MainPage extends React.Component{
             currTable = <TableContracts/>
         }
 
-        const lastElemIdx = this.state.elementsPerPage*this.state.currentPage;
-        const firstElemIdx = lastElemIdx-this.state.elementsPerPage;
-        const currPeople = this.state.people.slice(firstElemIdx,lastElemIdx);
-
-
-
         return(
             <div>
                 <Header></Header>
@@ -133,7 +114,6 @@ class MainPage extends React.Component{
                     <div id="lol"></div>
 
                 </div>
-                <Pagination elementsPerPage={this.state.elementsPerPage} totalElements={this.state.people.length} paginate={this.paginate}/>
             </div>
         );
     }
