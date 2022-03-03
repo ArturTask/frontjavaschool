@@ -4,36 +4,35 @@ import { Navigate } from "react-router-dom";
 import '../css/mainPage.css'
 import Header from "../modules/Header";
 import Requests from "../HTTP/Requests";
+import UsersModalTariff from "../modules/userModules/UsersModalTariff.js"
+import ModalWindow from "../modules/ModalWindow";
+import UsersTableTariff from "../modules/userModules/UsersTableTariff.js";
 
 class CustomerMainPage extends React.Component{
     constructor(props){
         super(props);
         this.state={
             smth:"",
-            people:[{name:'a', age:2},{name: 'b', age:9},{name:'c', age:2},{name:'d', age:3},{name:'s',age:9 },{name:"kk",age: 0},{name:"kk",age: 0},{name:"kk",age: 0}],
-            totalElems: 0,
-            elementsPerPage: 5,
-            currentPage: 1
+            showModalWindow:false,
+            body:""
         };
-        this.paginate = this.paginate.bind(this);
-        this.exit = this.exit.bind(this);
+        this.onClose = this.onClose.bind(this);
+        this.refresh = this.refresh.bind(this);
+        this.displayUsersTariff = this.displayUsersTariff.bind(this);
     }
 
-// componentDidMount(){
-//     Requests.getData().then((response)=>{
-//         this.setState({smth:response.data});
-//     });
-// }
-
-
-    exit(){
-        localStorage.setItem("isAuthorized",0)
-        
-        // alert(localStorage.getItem("isAuthorized"))
+    onClose(){
+        this.setState({showModalWindow:false})
     }
 
-    paginate = (pageNumber) => {
-        this.setState({currentPage: pageNumber})
+    refresh(){
+        this.setState({showModalWindow:false})
+        window.location.reload();
+    }
+
+    displayUsersTariff(tariffId,tariffTitle,tariffDescription){ 
+        this.setState({showModalWindow:true})
+        this.setState({body: <UsersModalTariff refresh={this.refresh} tariffId={tariffId} title={tariffTitle} description={tariffDescription} />})
     }
 
     render(){
@@ -44,38 +43,14 @@ class CustomerMainPage extends React.Component{
             return(<Navigate to="/adminMainPage"></Navigate>)
           }
 
-        const lastElemIdx = this.state.elementsPerPage*this.state.currentPage;
-        const firstElemIdx = lastElemIdx-this.state.elementsPerPage;
-        const currPeople = this.state.people.slice(firstElemIdx,lastElemIdx);
-
         return(
             <div>
-                {/* <div className="popUpWindow">
-                    here we display some info from table
-                </div> */}
                 <Header></Header>
-                <a href="/" id="exit" onClick={this.exit}>exit</a>
-                {/* <div>{this.state.smth}</div> */}
-                <table className="tablePeople" >
-                <tr>
-                    <th>Name</th>
-                    <th>age</th>
-                </tr>
-                <tbody>
-                    {
-                        currPeople.map(
-                            human =>
-                            <tr > 
-                                <td >{human.name}</td>
-                                <td >{human.age}</td>         
-                            </tr>
-                        )
-                    }
-                    
-                </tbody>
-
-            </table>
-                <Pagination elementsPerPage={this.state.elementsPerPage} totalElements={this.state.people.length} paginate={this.paginate}/>
+                {(this.state.showModalWindow) ? <ModalWindow onClose={this.onClose} body={this.state.body} />:<div></div>}
+                <UsersTableTariff display={this.displayUsersTariff}/>
+                
+                
+                
             </div>
         );
     }

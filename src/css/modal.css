@@ -119,11 +119,18 @@
 .oneOption {
     background-color: rgba(81, 229, 248, 0.664);
     border-radius: 10px;
+    width: 500px;
 }
 
 .oneOption *{
     display: inline;
     margin: 5px;
+}
+
+.oneOption input{
+    border-radius: 3px;
+    border: 1px solid #0d0d0d;
+    /* margin: 5px; */
 }
 
 /* TARIFF Modal */
@@ -135,8 +142,19 @@
     text-align: center;
 }
 
+.inlineOptionTitle{
+    display: inline;
+}
 
-#deleteTariffButton{
+div.inlineOptionTitle{
+    margin-right: 5px;
+}
+
+#inlineOptionStatus{
+    margin-left: 15px;
+}
+
+#changeTariffStatusButton{
     display: flex;
     margin-top: 0px;
     margin-bottom: auto;
@@ -148,10 +166,26 @@
     font-weight: bolder;
 }
 
-#deleteTariffButton:hover{
+#changeTariffStatusButton:hover{
     border: 1px solid #0d0d0d;
-    background-color: #ff1919bd;
+    background-color: #1990ffbd;
     transition: 1s ease-in-out;
+}
+
+.activeStatus{
+    padding: 0px 5px;
+    border: 1px solid #65f02fd5;
+    border-radius: 10px;
+    background-color: #65f02fd5;
+    color: #000000;
+}
+
+.inactiveStatus{
+    padding: 0px 5px;
+    border: 1px solid #e71a1ad5;
+    border-radius: 10px;
+    background-color: #ff1c1ce1;
+    color: #000000;
 }
 
 /* EDIT TARIFF MODAL */

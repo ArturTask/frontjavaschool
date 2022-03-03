@@ -21,10 +21,14 @@ export default class ModalTariff extends react.Component{
         let cost = document.getElementById("tariffCost").value;
 
         let optionNames = [];
+        let optionCosts = [];
         let optionTypes = [];
         let chosenOptions = [];
         $(".optionName").each((id,el)=>{
             optionNames.push($(el).val());
+        })
+        $(".optionCost").each((id,el)=>{
+            optionCosts.push($(el).val());
         })
         $(".optionType").each((id,el)=>{
             optionTypes.push($(el).find(":selected").val()); //get atribute value of selected option from select element
@@ -33,6 +37,7 @@ export default class ModalTariff extends react.Component{
         for(let i=0; i<optionNames.length; i++){
             chosenOptions.push({
                 name: optionNames[i],
+                cost:optionCosts[i],
                 optionType: optionTypes[i]
             })
         }
@@ -87,6 +92,7 @@ export default class ModalTariff extends react.Component{
                                 <div className="oneOption">
                                     <div className="optionId">{optionId}</div>
                                     <input className="optionName" placeholder="option" required="true"></input>
+                                    <input className="optionCost" placeholder="cost in $" required="true"></input>
                                     <select className="optionType">
                                         <option disabled>Tariff type</option>
                                         <option value="INTERNET">Internet</option>

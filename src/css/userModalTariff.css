@@ -1,0 +1,8 @@
+#userOptions .beforeOptions{
+    display: inline;
+    margin-left: 20px;
+    border: 1px solid #ffffff;
+    background-color: aqua;
+    border-radius: 5px 5px 0px 0px;
+    padding: 2px 5px;
+}

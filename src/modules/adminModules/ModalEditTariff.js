@@ -17,6 +17,7 @@ export default class extends react.Component{
         this.addOption = this.addOption.bind(this);
         this.deleteOptionById = this.deleteOptionById.bind(this);
         this.onChangeOptionName = this.onChangeOptionName.bind(this);
+        this.onChangeOptionCost = this.onChangeOptionCost.bind(this);
         this.onChangeOptionType = this.onChangeOptionType.bind(this);
         this.onChangeTitle = this.onChangeTitle.bind(this);
         this.onChangeDescription = this.onChangeDescription.bind(this);
@@ -36,6 +37,14 @@ export default class extends react.Component{
                 newOptions.push(i+1);
             }
             this.setState({options:newOptions,initialNumberOfOptions:response.data.options.length});
+            if(response.data.active){
+                $("#optionStatus").html("Active");
+                $("#optionStatus").addClass("activeStatus");
+            }
+            else{
+                $("#optionStatus").html("Inactive");
+                $("#optionStatus").addClass("inactiveStatus");
+            }
         });
 
     }
@@ -67,6 +76,13 @@ export default class extends react.Component{
         let numId = $(e.target).closest("div").attr("numId");
         let newCurrentOptions = this.state.currentOptions;
         newCurrentOptions[numId].name = e.target.value;
+        this.setState({currOptions:newCurrentOptions});
+    }
+
+    onChangeOptionCost(e){
+        let numId = $(e.target).closest("div").attr("numId");
+        let newCurrentOptions = this.state.currentOptions;
+        newCurrentOptions[numId].cost = e.target.value;
         this.setState({currOptions:newCurrentOptions});
     }
 
@@ -185,8 +201,6 @@ export default class extends react.Component{
         }
         this.setState({counter:newCounter});
 
-        //$("select").prop('selectedIndex',0); //сбросить выбранное
-
         $("div.oneOption select").each((id,el)=>{ //to proper change optionType
             $(el).find("option[value=\""+this.state.currentOptions[$(el).attr("numId")].optionType+"\"").attr("selected","selected");
 
@@ -201,16 +215,16 @@ export default class extends react.Component{
     render(){
         return(
             <div>
-            <button onClick={this.deleteTariff} id="deleteTariffButton">Delete tariff</button>
+            <button onClick={this.deleteTariff} id="changeTariffStatusButton">change status</button>
             <div id="modalEditTariffBody" className="modalBody">
                 <div id="modalEditTariffInfo">
                     <form>
-                        <h3>Id: {this.props.tariffId}</h3>
+                        <div className="inlineOptionTitle">Id: </div> <h3 className="inlineOptionTitle">{this.props.tariffId}</h3> <div id="inlineOptionStatus" className="inlineOptionTitle">status: </div> <h3 id="optionStatus" className="inlineOptionTitle activeStatus">Active</h3>
                         <h4>Title:</h4>
                         <input onChange={this.onChangeTitle} id="tariffEditTitle" className="inputModal" type="text" required="true" placeholder="Title" value={this.state.currentTatiff.title}></input>
                         <h4>Description:</h4>
                         <textarea onChange={this.onChangeDescription} id="tariffEditDescription" className="inputModal" type="text" required="true" placeholder="Description" cols="18" rows="4" value={this.state.currentTatiff.description}></textarea>
-                        <h4>Cost:</h4>
+                        <h4>Cost in $:</h4>
                         <input onChange={this.onChangeCost} id="tariffEditCost" className="inputModal" type="text" required="true" placeholder="Cost in $" value={this.state.currentTatiff.cost}></input>
                         <h4>Options:</h4>
                         <div id="editOptions">
@@ -220,6 +234,7 @@ export default class extends react.Component{
                                     <div numId={optionId-1} id={this.state.currentOptions[optionId-1].id} className="oneOption">
                                         <div className="optionId" value={this.state.currentOptions[optionId-1].id}>{optionId}</div>
                                         <input onChange={this.onChangeOptionName} className="optionName" placeholder="option" required="true" value={this.state.currentOptions[optionId-1].name}></input>
+                                        <input onChange={this.onChangeOptionCost} className="optionCost" value={this.state.currentOptions[optionId-1].cost} placeholder="cost in $" required="true"></input>
                                         <select onChange={this.onChangeOptionType} numId={optionId-1} id={"select"+this.state.currentOptions[optionId-1].id} className="optionType">
                                             <option disabled>Tariff type</option>
                                             <option selected value={this.state.currentOptions[optionId-1].optionType}>{this.state.currentOptions[optionId-1].optionType}</option>

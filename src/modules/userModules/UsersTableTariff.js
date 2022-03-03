@@ -3,11 +3,12 @@ import $ from "jquery";
 import Requests from "../../HTTP/Requests";
 import Pagination from '../Pagination.js';
 
-class TableTariffs extends react.Component{
+
+export default class UsersTableTariff extends react.Component{
     constructor(props){
         super(props);
         this.state={
-            head:["Id","Title","Description","Status"],
+            head:["Id","Title","Description"],
             info:[{id:1,title:"MegaSUPERBUPER",description:"vasya"}],
             totalElements: 0,
             elementsPerPage: 5,
@@ -24,8 +25,7 @@ class TableTariffs extends react.Component{
                 let currTariff = {
                     id:tariff.id,
                     title:tariff.title,
-                    description:tariff.description,
-                    active:tariff.active
+                    description:tariff.description
                 }
                 serverData.push(currTariff)
             });
@@ -39,7 +39,7 @@ class TableTariffs extends react.Component{
         var currentTariffTitle = closestTr.find(".currentTariffTitle").text();
         var currentTariffDescription = closestTr.find(".currentTariffDescription").text();
 
-        this.props.displayEdit(currentTariffId,currentTariffTitle,currentTariffDescription);
+        this.props.display(currentTariffId,currentTariffTitle,currentTariffDescription);
     }
 
 
@@ -71,7 +71,6 @@ class TableTariffs extends react.Component{
                                 <td className="currentTariffId" currentTariffId={tariff["id"]}>{tariff["id"]}</td>
                                 <td className="currentTariffTitle">{tariff["title"]}</td>
                                 <td className="currentTariffDescription">{tariff["description"]}</td>
-                                <td className="currentTariffActive">{tariff["active"]?"Active":"Inactive"}</td>
                                 <button onClick={this.showModalTariff}>show</button>
                             </tr>
                         )
@@ -84,4 +83,3 @@ class TableTariffs extends react.Component{
         );
     }
 }
-export default TableTariffs;
