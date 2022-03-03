@@ -20,7 +20,7 @@ export default class UsersTableTariff extends react.Component{
 
     componentDidMount(){
         let serverData = [];
-        Requests.getAllTariffs().then((response)=>{
+        Requests.getAllActiveTariffs().then((response)=>{
             response.data.map(tariff=>{
                 let currTariff = {
                     id:tariff.id,

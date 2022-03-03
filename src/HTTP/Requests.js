@@ -13,6 +13,7 @@ const GETALLTARIFFSURL = "http://localhost:8080/BackendJavaSchool/tariff/get_all
 const GETTARIFFBYID = "http://localhost:8080/BackendJavaSchool/tariff/find_tariff_";
 const UPDATETARIFFBYID = "http://localhost:8080/BackendJavaSchool/tariff/update_tariff";
 const DELETETARIFF = "http://localhost:8080/BackendJavaSchool/tariff/delete_";
+const GETALLACTIVETARIFFSURL = "http://localhost:8080/BackendJavaSchool/tariff/get_all_active_tariffs";
 
 class Requests{
     //test
@@ -96,6 +97,9 @@ class Requests{
 
     deleteTariff(id){
         return axios.delete(DELETETARIFF+id,config);
+    }
+    getAllActiveTariffs(){
+        return axios.get(GETALLACTIVETARIFFSURL,config);
     }
 }
 

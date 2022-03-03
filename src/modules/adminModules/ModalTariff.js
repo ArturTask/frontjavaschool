@@ -49,7 +49,7 @@ export default class ModalTariff extends react.Component{
             options:chosenOptions
         }
 
-        if(title!=="" && !optionNames.includes("")){ //if title is filled and option names too
+        if(title!=="" && !optionNames.includes("") && !optionCosts.includes("")){ //if title is filled and option names too
             Requests.postAddTariff(currTariff);
             this.props.refresh(); //reload this f*** page
         }

@@ -39,7 +39,6 @@ export default class UsersModalTariff extends react.Component{
     render(){
         return(
             <div>
-            <button onClick={this.deleteTariff} id="deleteTariffButton">Delete tariff</button>
             <div id="modalEditTariffBody" className="modalBody">
                 <div id="modalEditTariffInfo">
                     <form>
@@ -53,13 +52,15 @@ export default class UsersModalTariff extends react.Component{
                         <h4>Options:</h4>
                         <div id="userOptions">
                             <input className="beforeOptions" type="text" value="Name"></input>
+                            <input className="beforeOptions" type="text" value="Cost in $"></input>
                             <input className="beforeOptions" type="text" value="Type"></input>
                             {
                             this.state.options.map(
                                 optionId=>
                                     <div numId={optionId-1} id={this.state.currentOptions[optionId-1].id} className="oneOption">
                                         <div className="optionId" value={this.state.currentOptions[optionId-1].id}>{optionId}</div>
-                                        <input onChange={this.onChangeOptionName} className="optionName" placeholder="option" required="true" value={this.state.currentOptions[optionId-1].name}></input>
+                                        <input className="optionName" placeholder="option" required="true" value={this.state.currentOptions[optionId-1].name}></input>
+                                        <input className="optionCost" placeholder="option" required="true" value={this.state.currentOptions[optionId-1].cost}></input>
                                         <input numId={optionId-1} id={"select"+this.state.currentOptions[optionId-1].id} type="text" className="optionType" placeholder="type" value={this.state.currentOptions[optionId-1].optionType}></input>
                                     </div>
                                 )

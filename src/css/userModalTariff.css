@@ -1,8 +1,13 @@
 #userOptions .beforeOptions{
     display: inline;
-    margin-left: 20px;
+    margin-left: 15px;
+    margin-right: 5px;
     border: 1px solid #ffffff;
-    background-color: aqua;
+    background-color: rgba(81, 229, 248, 0.664);
     border-radius: 5px 5px 0px 0px;
-    padding: 2px 5px;
+    padding: 2px 0px;
 }
+/* 
+#userOptions{
+    width: 550px;
+} */

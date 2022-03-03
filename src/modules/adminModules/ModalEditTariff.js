@@ -107,8 +107,13 @@ export default class extends react.Component{
         let optionTypes = [];
         let optionIds = [];
         let chosenOptions = [];
+        let optionCosts = [];
+
         $(".optionName").each((id,el)=>{
             optionNames.push($(el).val());
+        })
+        $(".optionCost").each((id,el)=>{
+            optionCosts.push($(el).val());
         })
         $(".optionType").each((id,el)=>{
             optionTypes.push($(el).find(":selected").val()); //get atribute value of selected option from select element
@@ -122,6 +127,7 @@ export default class extends react.Component{
                 chosenOptions.push({
                     id:optionIds[i],
                     name: optionNames[i],
+                    cost:optionCosts[i],
                     optionType: optionTypes[i]
                 })
             
@@ -136,7 +142,7 @@ export default class extends react.Component{
             options:chosenOptions
         }
 
-        if(title!=="" && !optionNames.includes("")){ //if title is filled and option names too
+        if(title!=="" && !optionNames.includes("") && !optionCosts.includes("")){ //if title is filled and option names too
             // INFO: optionId = -1 if its new TEST
             // for (let i = 0; i < currTariff.options.length; i++) {
             //     alert(currTariff.options[i].name+"  "+currTariff.options[i].id)
