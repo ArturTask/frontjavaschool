@@ -8,7 +8,7 @@ export default class UsersTableTariff extends react.Component{
     constructor(props){
         super(props);
         this.state={
-            head:["Id","Title","Description"],
+            head:["Id","Title","Description","Cost"],
             info:[{id:1,title:"MegaSUPERBUPER",description:"vasya"}],
             totalElements: 0,
             elementsPerPage: 5,
@@ -25,7 +25,8 @@ export default class UsersTableTariff extends react.Component{
                 let currTariff = {
                     id:tariff.id,
                     title:tariff.title,
-                    description:tariff.description
+                    description:tariff.description,
+                    cost:tariff.cost
                 }
                 serverData.push(currTariff)
             });
@@ -54,13 +55,12 @@ export default class UsersTableTariff extends react.Component{
 
         return(
             <div>
-                <table id="tableTariffs" className="tableCustomers" >
+                <table id="usersTableTariffs" className="tableCustomers" >
                 <thead>
                     <tr>
                         {this.state.head.map(elem=>
                             <th>{elem}</th>
                         )}
-                        <th><button onClick={this.props.display}>add</button></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -71,6 +71,7 @@ export default class UsersTableTariff extends react.Component{
                                 <td className="currentTariffId" currentTariffId={tariff["id"]}>{tariff["id"]}</td>
                                 <td className="currentTariffTitle">{tariff["title"]}</td>
                                 <td className="currentTariffDescription">{tariff["description"]}</td>
+                                <td className="currentTariffDescription">{tariff["cost"]}</td>
                                 <button onClick={this.showModalTariff}>show</button>
                             </tr>
                         )

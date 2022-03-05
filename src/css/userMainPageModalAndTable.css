@@ -1,0 +1,56 @@
+#userOptions .beforeOptions{
+    display: inline;
+    margin-left: 10px;
+    margin-right: 5px;
+    border: 1px solid #ffffff;
+    background-color: rgba(81, 229, 248, 0.664);
+    border-radius: 5px 5px 0px 0px;
+    padding: 2px 0px;
+}
+
+#userOptions .beforeOptions:first-child{
+    margin-left: 50px;
+}
+
+#usersTableTariffs tr td:nth-child(2){ /*for table tariffs*/
+	width: 30%	
+}
+
+#usersTableTariffs tr td:nth-child(3){
+	width: 55%	
+}
+
+#usersTableTariffs tr td:nth-child(4){
+	width: 15%	
+}
+
+
+.betweenOptionTypes, #usersPhoneNumberPattern{
+    margin: 5px auto;
+    width: 550px;
+    border: 1px solid #ffffff;
+    background-color: rgba(67, 69, 70, 0.911);
+    /* border-radius: 5px 5px 0px 0px; */
+    color: #ffffff;
+    font-weight: bold;
+    font-size: 16px;
+    padding: 2px 0px;
+}
+
+#usersPhoneNumberInput{
+    margin-top: 20px;
+    margin: 20px auto;
+    width: 250px;
+    border: 1px solid #000000;
+    background-color: rgba(255, 255, 255, 0.664);
+    border-radius: 5px ;
+    color: #000000;
+    font-weight: bold;
+    font-size: 16px;
+    padding: 2px 0px;
+}
+
+#usersPhoneNumberInput::placeholder{
+    color: #213752;
+    font-weight: normal;
+}

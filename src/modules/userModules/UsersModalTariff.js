@@ -1,7 +1,7 @@
 import react from "react";
 import Requests from "../../HTTP/Requests";
 import $ from "jquery";
-import "../../css/userModalTariff.css"
+import "../../css/userMainPageModalAndTable.css"
 
 export default class UsersModalTariff extends react.Component{
     constructor(props){
@@ -14,7 +14,10 @@ export default class UsersModalTariff extends react.Component{
             initialNumberOfOptions:0
             
         }
-        
+        this.showValueOfRadio=this.showValueOfRadio.bind(this);
+        this.showChosenCheckButtons = this.showChosenCheckButtons.bind(this);
+        this.checkPhoneNumber = this.checkPhoneNumber.bind(this);
+        this.signContract = this.signContract.bind(this);
         // this.updateSelectOptions = this.updateSelectOptions.bind(this); used with componentDidUpdate
     }
 
@@ -34,39 +37,214 @@ export default class UsersModalTariff extends react.Component{
     }
 
 
+    showValueOfRadio(){
+        $(".radioInternet").each((i,el)=>{
+            if($(el).prop("checked")){
+                // alert($(el).val())
+            }
+        })
+    }
 
+    showChosenCheckButtons(){
+        $(".checkboxUtil").each((i,el)=>{
+            if($(el).prop("checked")){
+                //alert($(el).val())
+            }
+        })
+    }
+    checkPhoneNumber(){
+
+        if(/[8]{1}[7]{3}[0-9]{7}$/.test($("#usersPhoneNumberInput").val())){
+            alert("fuck yeah")    
+        }
+    }
+
+    //main Function
+    signContract(e){
+
+        let contract ={};
+        let contractOptions = [];
+
+        //parse options
+        $(".radioInternet").each((i,el)=>{
+            if($(el).prop("checked")){
+                contractOptions.push(
+                    {
+                        id:$(el).val(),
+                        name: $(el).attr("contractOptionName"),
+                        optionType:"INTERNET",
+                        cost: $(el).attr("contractOptionCost")
+                    });
+            }
+        })
+
+        $(".radioMinutes").each((i,el)=>{
+            if($(el).prop("checked")){
+                contractOptions.push(
+                    {
+                        id:$(el).val(),
+                        name: $(el).attr("contractOptionName"),
+                        optionType:"MINUTES",
+                        cost: $(el).attr("contractOptionCost")
+                    });
+            }
+        })
+
+        $(".radioMessages").each((i,el)=>{
+            if($(el).prop("checked")){
+                contractOptions.push(
+                    {
+                        id:$(el).val(),
+                        name: $(el).attr("contractOptionName"),
+                        optionType:"MESSAGES",
+                        cost: $(el).attr("contractOptionCost")
+                    });
+            }
+        })
+
+        $(".checkboxUtil").each((i,el)=>{
+            if($(el).prop("checked")){
+                contractOptions.push(
+                    {
+                        id:$(el).val(),
+                        name: $(el).attr("contractOptionName"),
+                        optionType:"UTIL",
+                        cost: $(el).attr("contractOptionCost")
+                    });
+            }
+        })
+
+        //our dto
+        contract={
+            phoneNumber:$("#usersPhoneNumberInput").val(),
+            userId:localStorage.getItem("userId"),
+            tariffId:this.props.tariffId,
+            contractOptions:contractOptions
+        }
+        
+        e.preventDefault();
+        Requests.postSignContract(contract).then((response)=>{
+            alert(response.data.message);
+            if(response.data.message=="Success"){
+                window.location.reload();
+            }
+        });
+
+    }
 
     render(){
         return(
-            <div>
-            <div id="modalEditTariffBody" className="modalBody">
-                <div id="modalEditTariffInfo">
+        <div>
+            <div id="modalUsersTariffBody" className="modalBody">
+                <div id="modalUsersTariffInfo">
                     <form>
                         <h3>Id: {this.props.tariffId}</h3>
                         <h4>Title:</h4>
-                        <input id="tariffEditTitle" className="inputModal" type="text" required="true" placeholder="Title" value={this.state.currentTatiff.title}></input>
+                        <input id="tariffUsersTitle" className="inputModal" type="text" required="true" placeholder="Title" value={this.state.currentTatiff.title}></input>
                         <h4>Description:</h4>
-                        <textarea id="tariffEditDescription" className="inputModal" type="text" required="true" placeholder="Description" cols="18" rows="4" value={this.state.currentTatiff.description}></textarea>
+                        <textarea id="tariffUsersDescription" className="inputModal" type="text" required="true" placeholder="Description" cols="18" rows="4" value={this.state.currentTatiff.description}></textarea>
                         <h4>Cost:</h4>
-                        <input id="tariffEditCost" className="inputModal" type="text" required="true" placeholder="Cost in $" value={this.state.currentTatiff.cost}></input>
+                        <input id="tariffUsersCost" className="inputModal" type="text" required="true" placeholder="Cost in $" value={this.state.currentTatiff.cost}></input>
                         <h4>Options:</h4>
                         <div id="userOptions">
                             <input className="beforeOptions" type="text" value="Name"></input>
                             <input className="beforeOptions" type="text" value="Cost in $"></input>
                             <input className="beforeOptions" type="text" value="Type"></input>
-                            {
-                            this.state.options.map(
-                                optionId=>
-                                    <div numId={optionId-1} id={this.state.currentOptions[optionId-1].id} className="oneOption">
-                                        <div className="optionId" value={this.state.currentOptions[optionId-1].id}>{optionId}</div>
-                                        <input className="optionName" placeholder="option" required="true" value={this.state.currentOptions[optionId-1].name}></input>
-                                        <input className="optionCost" placeholder="option" required="true" value={this.state.currentOptions[optionId-1].cost}></input>
-                                        <input numId={optionId-1} id={"select"+this.state.currentOptions[optionId-1].id} type="text" className="optionType" placeholder="type" value={this.state.currentOptions[optionId-1].optionType}></input>
-                                    </div>
-                                )
-                            }
+                            
+                            <input className="betweenOptionTypes" type="text" value="Internet"></input>
+                            <div id="internetRadioButtons">
+                                {
+                                this.state.options.map(
+                                    optionId=>{
+                                        if(this.state.currentOptions[optionId-1].optionType=="INTERNET"){
+                                            return(
+                                            <div numId={optionId-1} id={this.state.currentOptions[optionId-1].id} className="oneOption">
+                                                <div className="optionId" value={this.state.currentOptions[optionId-1].id}>{optionId}</div>
+                                                <input type="radio" className="radioInternet" value={this.state.currentOptions[optionId-1].id} onChange={this.showValueOfRadio} name="intrenet_radio_button" contractOptionName={this.state.currentOptions[optionId-1].name} contractOptionCost={this.state.currentOptions[optionId-1].cost} />
+                                                <input className="optionName" placeholder="option" required="true" value={this.state.currentOptions[optionId-1].name}></input>
+                                                <input className="optionCost" placeholder="option" required="true" value={this.state.currentOptions[optionId-1].cost}></input>
+                                                <input numId={optionId-1} id={"select"+this.state.currentOptions[optionId-1].id} type="text" className="optionType" placeholder="type" value={this.state.currentOptions[optionId-1].optionType}></input>
+                                            </div>
+                                            );
+                                        }
+                                        
+                                        }
+                                    )
+                                }
+                            </div>
+
+                            <input className="betweenOptionTypes" type="text" value="Minutes"></input>
+                            <div id="minutesRadioButtons">
+                                {
+                                this.state.options.map(
+                                    optionId=>{
+                                        if(this.state.currentOptions[optionId-1].optionType=="MINUTES"){
+                                            return(
+                                            <div numId={optionId-1} id={this.state.currentOptions[optionId-1].id} className="oneOption">
+                                                <div className="optionId" value={this.state.currentOptions[optionId-1].id}>{optionId}</div>
+                                                <input type="radio" className="radioMinutes" value={this.state.currentOptions[optionId-1].id} onChange={this.showValueOfRadio} name="minutes_radio_button" contractOptionName={this.state.currentOptions[optionId-1].name} contractOptionCost={this.state.currentOptions[optionId-1].cost} />
+                                                <input className="optionName" placeholder="option" required="true" value={this.state.currentOptions[optionId-1].name}></input>
+                                                <input className="optionCost" placeholder="option" required="true" value={this.state.currentOptions[optionId-1].cost}></input>
+                                                <input numId={optionId-1} id={"select"+this.state.currentOptions[optionId-1].id} type="text" className="optionType" placeholder="type" value={this.state.currentOptions[optionId-1].optionType}></input>
+                                            </div>
+                                            );
+                                        }
+                                        
+                                        }
+                                    )
+                                }
+                            </div>
+
+                            <input className="betweenOptionTypes" type="text" value="Messages"></input>
+                            <div id="messagesRadioButtons">
+                                {
+                                this.state.options.map(
+                                    optionId=>{
+                                        if(this.state.currentOptions[optionId-1].optionType=="MESSAGES"){
+                                            return(
+                                            <div numId={optionId-1} id={this.state.currentOptions[optionId-1].id} className="oneOption">
+                                                <div className="optionId" value={this.state.currentOptions[optionId-1].id}>{optionId}</div>
+                                                <input type="radio" className="radioMessages" value={this.state.currentOptions[optionId-1].id} onChange={this.showValueOfRadio} name="messages_radio_button" contractOptionName={this.state.currentOptions[optionId-1].name} contractOptionCost={this.state.currentOptions[optionId-1].cost} />
+                                                <input className="optionName" placeholder="option" required="true" value={this.state.currentOptions[optionId-1].name}></input>
+                                                <input className="optionCost" placeholder="option" required="true" value={this.state.currentOptions[optionId-1].cost}></input>
+                                                <input numId={optionId-1} id={"select"+this.state.currentOptions[optionId-1].id} type="text" className="optionType" placeholder="type" value={this.state.currentOptions[optionId-1].optionType}></input>
+                                            </div>
+                                            );
+                                        }
+                                        
+                                        }
+                                    )
+                                }
+                            </div>
+
+                            <input className="betweenOptionTypes" type="text" value="Util"></input>
+                            <div id="utillCheckboxButtons">
+                                {
+                                this.state.options.map(
+                                    optionId=>{
+                                        if(this.state.currentOptions[optionId-1].optionType=="UTIL"){
+                                            return(
+                                            <div numId={optionId-1} id={this.state.currentOptions[optionId-1].id} className="oneOption">
+                                                <div className="optionId" value={this.state.currentOptions[optionId-1].id}>{optionId}</div>
+                                                <input type="checkbox" className="checkboxUtil" value={this.state.currentOptions[optionId-1].id} onChange={this.showChosenCheckButtons} name="util_checkbox_button" contractOptionName={this.state.currentOptions[optionId-1].name} contractOptionCost={this.state.currentOptions[optionId-1].cost}  />
+                                                <input className="optionName" placeholder="option" required="true" value={this.state.currentOptions[optionId-1].name}></input>
+                                                <input className="optionCost" placeholder="option" required="true" value={this.state.currentOptions[optionId-1].cost}></input>
+                                                <input numId={optionId-1} id={"select"+this.state.currentOptions[optionId-1].id} type="text" className="optionType" placeholder="type" value={this.state.currentOptions[optionId-1].optionType}></input>
+                                            </div>
+                                            );
+                                        }
+                                        
+                                        }
+                                    )
+                                }
+                            </div>
+
+                            <div id="usersPhoneNumberDiv" className="phoneNumberDiv">
+                                <input type="text" id="usersPhoneNumberPattern" value={"Enter your new phone number only 8777*******  * - any 7 numbers "}></input>
+                                <input type="tel" id="usersPhoneNumberInput" name="phone" placeholder="8777*******" pattern="[8]{1}[7]{3}[0-9]{7}$" required></input>                            
+                            </div>
                         </div>
-                        <button className="submitModal" id="addEditTariff" onClick={this.editTariff}>send</button>
+                        <button className="submitModal" id="signContract" onClick={this.signContract}>sign contract</button>
                     </form>
                     
                 </div>

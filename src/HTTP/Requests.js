@@ -14,6 +14,7 @@ const GETTARIFFBYID = "http://localhost:8080/BackendJavaSchool/tariff/find_tarif
 const UPDATETARIFFBYID = "http://localhost:8080/BackendJavaSchool/tariff/update_tariff";
 const DELETETARIFF = "http://localhost:8080/BackendJavaSchool/tariff/delete_";
 const GETALLACTIVETARIFFSURL = "http://localhost:8080/BackendJavaSchool/tariff/get_all_active_tariffs";
+const SIGNCONTRACTURL = "http://localhost:8080/BackendJavaSchool/contracts/sign"
 
 class Requests{
     //test
@@ -98,8 +99,14 @@ class Requests{
     deleteTariff(id){
         return axios.delete(DELETETARIFF+id,config);
     }
+
+    //FOR CUSTOMERS
     getAllActiveTariffs(){
         return axios.get(GETALLACTIVETARIFFSURL,config);
+    }
+
+    postSignContract(contract){
+        return axios.post(SIGNCONTRACTURL,contract,config)
     }
 }
 

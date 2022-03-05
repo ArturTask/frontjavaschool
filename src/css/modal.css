@@ -3,6 +3,7 @@
 .modal {
     width: 100%;
     height: 100%;
+    overflow: auto; /* To Give Parent Div 100% Height Of Child */
     background: rgba(0, 0, 0, 0.63);
     transition: 1.1s ease-out;
     position: absolute;
@@ -16,6 +17,8 @@
     /* justify-content: center; */
     display: block;
 } 
+
+
 .modal *{
     display: flex;
     text-align: center;
@@ -36,12 +39,13 @@
 
 
 .content{
-    width: 600px;
+    width: 800px;
     /* height: 400px; */
     padding: 40px 0px;
-    margin-top: 60px;
+    margin-top: 40px;
     margin-left: auto;
     margin-right: auto;
+    margin-bottom: auto;
     background-color: #ffffff;
     justify-content: center;
     align-items: center;
