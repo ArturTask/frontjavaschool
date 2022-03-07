@@ -95,10 +95,10 @@ export default class ModalTariff extends react.Component{
                                     <input className="optionCost" placeholder="cost in $" required="true"></input>
                                     <select className="optionType">
                                         <option disabled>Tariff type</option>
-                                        <option value="INTERNET">Internet</option>
-                                        <option value="MINUTES">Minutes</option>
-                                        <option value="MESSAGES">Messages</option>
-                                        <option value="UTIL">Util</option>
+                                        <option value="INTERNET">INTERNET</option>
+                                        <option value="MINUTES">MINUTES</option>
+                                        <option value="MESSAGES">MESSAGES</option>
+                                        <option value="UTIL">UTIL</option>
                                     </select>
                                 </div>
                             )

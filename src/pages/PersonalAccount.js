@@ -2,8 +2,24 @@ import react from "react";
 import Header from "../modules/Header";
 import logo from "../images/accountLogo.png"
 import '../css/personalAccount.css'
+import Requests from "../HTTP/Requests";
+import ModalWindow from "../modules/ModalWindow";
+import UsersModalContract from "../modules/userModules/UsersModalContract";
+import $ from "jquery";
 
 class PersonalAccount extends react.Component{
+    constructor(props){
+        super(props);
+
+        this.state={
+            info:[],
+            showModalWindow:false,
+            body:""
+        }
+        this.onClose = this.onClose.bind(this);
+        this.refresh = this.refresh.bind(this);
+        this.showContract = this.showContract.bind(this);
+    }
 
     componentDidMount(){
         if(localStorage.getItem("userRole")=="Admin"){
@@ -11,20 +27,57 @@ class PersonalAccount extends react.Component{
         }
         else{
             //get contract from Requests by get
+            Requests.getContractIdsANdPhoneNumbersOfUser(localStorage.getItem("userId")).then((response)=>{
+                // alert(response.data[0].phoneNumber);
+                this.setState({info:response.data});
+            })
+        }
+
+    }
+
+    onClose(){
+        this.setState({showModalWindow:false})
+    }
+
+    refresh(){
+        this.setState({showModalWindow:false})
+        window.location.reload();
+    }
+
+    showContract(){
+        if(localStorage.getItem("userRole")=="Customer"){
+            this.setState(
+                {showModalWindow:true,
+                    body:<UsersModalContract phoneNumber={$(".contractSelect").find(":selected").text()} contractId={$(".contractSelect").find(":selected").val()}/>
+                })
         }
     }
 
     render(){
         
         return(
-        <div>
+        <div className="bodyPersonalAccount">
+            { (this.state.showModalWindow)?<ModalWindow onClose={this.onClose} body={this.state.body} />:<div></div>}
             <Header></Header>
             <div id="personalAccountBody">
                 <div id="personalInfo">
                     <img src={logo}/>
                     <div id="userName" className="userInfo">Your username: {localStorage.getItem("userName")}</div>
                     <div id="userRole" className="userInfo">Your role: {localStorage.getItem("userRole")}</div>
-                    <div id="contract" className="userInfo">No active contracts</div>
+                    <div id="contract" className="userInfo"></div>
+                    <select className="contractSelect">
+                        
+                        {   
+                        this.state.info.map((idAndNumber)=>{
+                                return(
+                                <option value={idAndNumber.contractId}>{idAndNumber.phoneNumber}</option>
+                                );
+                            }
+
+                        )
+                        }
+                    </select>
+                    <button onClick={this.showContract}>show contract</button>
                 </div>
             </div>
         </div>

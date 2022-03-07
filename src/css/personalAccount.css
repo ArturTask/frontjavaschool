@@ -10,10 +10,19 @@
     display: flex;
     justify-content: center;
     border-radius: 15px;
+    z-index: 0;
 }
 
 #personalAccountBody *{
     display: block;
+}
+
+#personalInfo .contractSelect{
+    margin: 10px auto;
+    width: 150px;
+    font-size: large;
+    padding: 5px;
+
 }
 
 .userInfo{
@@ -38,4 +47,24 @@
     margin-right: auto;
     text-align: center;
     /* margin: auto; */
+}
+
+#userName{
+    margin-top: 80px;
+}
+
+#userRole{
+    margin-top: 20px;
+}
+
+#personalAccountBody button{
+    margin: 10px auto;
+    padding: 5px;
+    border: 1px solid #ffffff;
+    border-radius: 10px;
+}
+
+.bodyPersonalAccount #modal{ /* modal on personal acc */
+    /* background-color: aqua; */
+    z-index: 1;
 }

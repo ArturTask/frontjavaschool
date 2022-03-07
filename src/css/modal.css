@@ -195,3 +195,62 @@ div.inlineOptionTitle{
 /* EDIT TARIFF MODAL */
 
 /* ADMIN modals */
+
+
+
+
+/* CUSTOMER MODALS */
+
+#modalWarningChangeContract{
+    background-color: #000000da;
+    margin: 50px auto;
+    width: 600px;
+    height: 300px;
+    position: absolute;
+    top: 0; left: 0; bottom: 0; right: 0;
+    margin-top: 200px;
+    justify-content: center;
+    border-radius: 10px;
+    transition: 1s;
+}
+
+#modalWarningChangeContract textarea{
+    margin-top: 40px;
+    width: 400px;
+    font-size: large;
+    font-weight: bolder;
+    
+}
+
+.inlineButton{
+    display: inline;
+    margin: 40px;
+    font-size: large;
+    font-weight: bolder;
+    border-radius: 10px;
+    border: 1px solid #000000;
+}
+
+#yesButton:hover{
+    transition: 1s;
+    background-color: #ff6f6f;
+}
+
+#noButton:hover{
+    transition: 1s;
+    background-color: #8cff6f;
+}
+
+#warningText{
+    margin-top: 40px;
+    width: 400px;
+    font-size: 28px;
+    font-weight: bolder;
+    border-radius: 10px;
+    border: 1px solid #000000;
+    color: #ff0f0f;
+}
+
+
+
+/* CUSTOMER MODALS */

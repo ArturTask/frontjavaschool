@@ -14,7 +14,10 @@ const GETTARIFFBYID = "http://localhost:8080/BackendJavaSchool/tariff/find_tarif
 const UPDATETARIFFBYID = "http://localhost:8080/BackendJavaSchool/tariff/update_tariff";
 const DELETETARIFF = "http://localhost:8080/BackendJavaSchool/tariff/delete_";
 const GETALLACTIVETARIFFSURL = "http://localhost:8080/BackendJavaSchool/tariff/get_all_active_tariffs";
-const SIGNCONTRACTURL = "http://localhost:8080/BackendJavaSchool/contracts/sign"
+const SIGNCONTRACTURL = "http://localhost:8080/BackendJavaSchool/contracts/sign";
+const GETCONTRACTIDSANDPHONENUMBERS = "http://localhost:8080/BackendJavaSchool/contracts/contract_ids_and_phone_numbers_of_user_"; 
+const GETCONTRACT = "http://localhost:8080/BackendJavaSchool/contracts/get_contract";
+const DELETECONTRACT = "http://localhost:8080/BackendJavaSchool/contracts/delete_contract_";
 
 class Requests{
     //test
@@ -107,6 +110,20 @@ class Requests{
 
     postSignContract(contract){
         return axios.post(SIGNCONTRACTURL,contract,config)
+    }
+
+    //PERSONAL ACCOUNT
+    getContractIdsANdPhoneNumbersOfUser(userId){
+        return axios.get(GETCONTRACTIDSANDPHONENUMBERS+userId,config);
+    }
+    
+    postGetContract(contractId,phoneNumber){
+        let resp ={contractId:contractId,phoneNumber:phoneNumber}
+        return axios.post(GETCONTRACT,resp,config);
+    }
+
+    deleteContract(id){
+        return axios.delete(DELETECONTRACT+id,config)
     }
 }
 
