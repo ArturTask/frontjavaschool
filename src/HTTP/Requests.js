@@ -18,6 +18,9 @@ const SIGNCONTRACTURL = "http://localhost:8080/BackendJavaSchool/contracts/sign"
 const GETCONTRACTIDSANDPHONENUMBERS = "http://localhost:8080/BackendJavaSchool/contracts/contract_ids_and_phone_numbers_of_user_"; 
 const GETCONTRACT = "http://localhost:8080/BackendJavaSchool/contracts/get_contract";
 const DELETECONTRACT = "http://localhost:8080/BackendJavaSchool/contracts/delete_contract_";
+const ISBLOCKEDURL = "http://localhost:8080/BackendJavaSchool/users/is_blocked_user_"
+const CHANGEBLOCKUSER = "http://localhost:8080/BackendJavaSchool/users/change_block_user_"
+const CHANGEBLOCKUSERBYADMIN = "http://localhost:8080/BackendJavaSchool/manage/change_block_user_"
 
 class Requests{
     //test
@@ -103,6 +106,10 @@ class Requests{
         return axios.delete(DELETETARIFF+id,config);
     }
 
+    changeBlockUserByAdmin(userId){
+        return axios.get(CHANGEBLOCKUSERBYADMIN+userId,config)
+    }
+
     //FOR CUSTOMERS
     getAllActiveTariffs(){
         return axios.get(GETALLACTIVETARIFFSURL,config);
@@ -123,7 +130,15 @@ class Requests{
     }
 
     deleteContract(id){
-        return axios.delete(DELETECONTRACT+id,config)
+        return axios.delete(DELETECONTRACT+id,config);
+    }
+
+    getIsBlocked(userId){
+        return axios.get(ISBLOCKEDURL+userId,config);
+    }
+
+    changeBlockUser(userId){
+        return axios.get(CHANGEBLOCKUSER+userId,config);
     }
 }
 

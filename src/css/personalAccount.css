@@ -1,7 +1,7 @@
 #personalAccountBody{
     background-color: rgba(255, 255, 255, 1);
-    height: 400px;
-    width: 400px;
+    height: 500px;
+    width: 500px;
     margin-top: 20px;
     margin-left: auto;
     margin-right: auto;
@@ -67,4 +67,12 @@
 .bodyPersonalAccount #modal{ /* modal on personal acc */
     /* background-color: aqua; */
     z-index: 1;
+}
+
+#personalAccountBody .changeBlock{
+    margin: 10px auto;
+    padding: 5px;
+    height: 30px;
+    text-align: center;
+    
 }

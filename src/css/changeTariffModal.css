@@ -2,7 +2,7 @@
     position: absolute;
     width: 100%;
     height: 100%;
-    overflow: auto; /* To Give Parent Div 100% Height Of Child */
+    /*overflow: auto; /* To Give Parent Div 100% Height Of Child */
     background: rgba(0, 0, 0, 0.63);
     position: absolute;
     top: 0;

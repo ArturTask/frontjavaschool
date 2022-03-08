@@ -14,11 +14,13 @@ class PersonalAccount extends react.Component{
         this.state={
             info:[],
             showModalWindow:false,
-            body:""
+            body:"",
+            status:""
         }
         this.onClose = this.onClose.bind(this);
         this.refresh = this.refresh.bind(this);
         this.showContract = this.showContract.bind(this);
+        this.changeBlockUser = this.changeBlockUser.bind(this);
     }
 
     componentDidMount(){
@@ -30,7 +32,26 @@ class PersonalAccount extends react.Component{
             Requests.getContractIdsANdPhoneNumbersOfUser(localStorage.getItem("userId")).then((response)=>{
                 // alert(response.data[0].phoneNumber);
                 this.setState({info:response.data});
-            })
+                Requests.getIsBlocked(localStorage.getItem("userId")).then((response)=>{
+                    let isBlockedDto = response.data;
+                    if(isBlockedDto.message==null){
+                        if(isBlockedDto.blocked){
+                            this.setState({status:"Blocked"})
+                            $(".isBlocked").addClass("blocked");
+                        }
+                        else{
+                            this.setState({status:"Active"})
+                            $(".isBlocked").addClass("unblocked");
+                        }
+                    }
+                    else{
+                        alert(isBlockedDto.message)
+                    }
+                });
+
+            });
+
+            
         }
 
     }
@@ -53,6 +74,13 @@ class PersonalAccount extends react.Component{
         }
     }
 
+    changeBlockUser(){
+        Requests.changeBlockUser(localStorage.getItem("userId")).then((response)=>{
+            alert(response.data.message);
+            window.location.reload();
+        });
+    }
+
     render(){
         
         return(
@@ -62,6 +90,8 @@ class PersonalAccount extends react.Component{
             <div id="personalAccountBody">
                 <div id="personalInfo">
                     <img src={logo}/>
+                    <div className="beforeBlock">status: </div>
+                    <input className="isBlocked" type="text" value={this.state.status}></input>
                     <div id="userName" className="userInfo">Your username: {localStorage.getItem("userName")}</div>
                     <div id="userRole" className="userInfo">Your role: {localStorage.getItem("userRole")}</div>
                     <div id="contract" className="userInfo"></div>
@@ -78,6 +108,7 @@ class PersonalAccount extends react.Component{
                         }
                     </select>
                     <button onClick={this.showContract}>show contract</button>
+                    <button onClick={this.changeBlockUser} className="changeBlock">change blocked status</button>
                 </div>
             </div>
         </div>
