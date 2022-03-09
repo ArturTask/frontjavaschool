@@ -21,6 +21,7 @@ const DELETECONTRACT = "http://localhost:8080/BackendJavaSchool/contracts/delete
 const ISBLOCKEDURL = "http://localhost:8080/BackendJavaSchool/users/is_blocked_user_"
 const CHANGEBLOCKUSER = "http://localhost:8080/BackendJavaSchool/users/change_block_user_"
 const CHANGEBLOCKUSERBYADMIN = "http://localhost:8080/BackendJavaSchool/manage/change_block_user_"
+const GETALLCONTRACTSUSERINFO = "http://localhost:8080/BackendJavaSchool/manage/getAllContractsUserInfo"
 
 class Requests{
     //test
@@ -108,6 +109,10 @@ class Requests{
 
     changeBlockUserByAdmin(userId){
         return axios.get(CHANGEBLOCKUSERBYADMIN+userId,config)
+    }
+
+    getAllContractsUserInfo(){
+        return axios.get(GETALLCONTRACTSUSERINFO,config);
     }
 
     //FOR CUSTOMERS

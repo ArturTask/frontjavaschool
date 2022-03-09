@@ -1,4 +1,5 @@
 import react from "react";
+import Requests from "../../HTTP/Requests.js";
 import Pagination from '../Pagination.js';
 
 class tableContracts extends react.Component{
@@ -12,6 +13,12 @@ class tableContracts extends react.Component{
             currentPage: 1
         }
         this.paginate = this.paginate.bind(this);
+    }
+
+    componentDidMount(){
+        Requests.getAllContractsUserInfo().then((response)=>{
+            this.setState({info:response.data, totalElements:response.data.length})
+        })
     }
 
     paginate = (pageNumber) => {
@@ -43,9 +50,9 @@ class tableContracts extends react.Component{
                             currInfo.map(
                                 contract =>
                                 <tr > 
-                                    <td >{contract["id"]}</td>
+                                    <td >{contract["userId"]}</td>
                                     <td >{contract["phoneNumber"]}</td>
-                                    <td >{contract["user"]}</td>
+                                    <td >{contract["userName"]}</td>
                                 </tr>
                             )
                         }
