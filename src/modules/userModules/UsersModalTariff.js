@@ -115,11 +115,28 @@ export default class UsersModalTariff extends react.Component{
         })
 
         //our dto
-        contract={
-            phoneNumber:$("#usersPhoneNumberInput").val(),
-            userId:localStorage.getItem("userId"),
-            tariffId:this.props.tariffId,
-            contractOptions:contractOptions
+        // contract={
+        //     phoneNumber:$("#usersPhoneNumberInput").val(),
+        //     userId:localStorage.getItem("userId"),
+        //     tariffId:this.props.tariffId,
+        //     contractOptions:contractOptions
+        // }
+
+        if(localStorage.getItem("userRole")=="Admin"){//if we change tariff by admin
+            contract={
+                phoneNumber:$("#usersPhoneNumberInput").val(),
+                userId:this.props.customerId,
+                tariffId:this.props.tariffId,
+                contractOptions:contractOptions
+            }
+        }
+        else{ //if user changes tariff by himself
+            contract={
+                phoneNumber:$("#usersPhoneNumberInput").val(),
+                userId:localStorage.getItem("userId"),
+                tariffId:this.props.tariffId,
+                contractOptions:contractOptions
+            }
         }
         
         e.preventDefault();

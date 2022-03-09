@@ -60,7 +60,7 @@ export default class UsersModalContract extends react.Component{
         return(
         <div>
             {
-                (this.state.showChangeContract)?<ChangeTariffModal oldContractId={this.props.contractId} oldPhoneNumber={this.props.phoneNumber} onClose={this.onCloseChangeContract}/>:<div></div>
+                (this.state.showChangeContract)?<ChangeTariffModal oldContractId={this.props.contractId} oldPhoneNumber={this.props.phoneNumber} onClose={this.onCloseChangeContract} customerId={this.props.customerId}/>:<div></div>
             }
 
             {

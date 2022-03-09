@@ -170,7 +170,7 @@ body {
 .myClass img:nth-child(3) { animation-delay: 1.5s }
 .myClass img:nth-child(4) { animation-delay: 2s } */
 
-/* User status - is blocke or not */
+/* User status - is blocked or not */
 
 .isBlocked{
   border-radius: 10px;
@@ -198,3 +198,5 @@ body {
   border-radius: 10px;
   
 }
+
+/* User status - is blocked or not */

@@ -121,12 +121,25 @@ export default class ChangeTariffModal extends react.Component{
                 })
 
                 //our dto
-                contract={
-                    phoneNumber:this.props.oldPhoneNumber,
-                    userId:localStorage.getItem("userId"),
-                    tariffId:this.state.currentTatiff.id,
-                    contractOptions:contractOptions
+
+                if(localStorage.getItem("userRole")=="Admin"){//if we change tariff by admin
+                    
+                    contract={
+                        phoneNumber:this.props.oldPhoneNumber,
+                        userId:this.props.customerId,
+                        tariffId:this.state.currentTatiff.id,
+                        contractOptions:contractOptions
+                    }
                 }
+                else{ //if user changes tariff by himself
+                    contract={
+                        phoneNumber:this.props.oldPhoneNumber,
+                        userId:localStorage.getItem("userId"),
+                        tariffId:this.state.currentTatiff.id,
+                        contractOptions:contractOptions
+                    }
+                }
+                
                 
                 e.preventDefault();
                 Requests.postSignContract(contract).then((response)=>{
@@ -170,7 +183,7 @@ export default class ChangeTariffModal extends react.Component{
                             <input id="tariffChangeContractTitle" className="inputModal" type="text" required="true" placeholder="Title" value={this.state.currentTatiff.title}></input>
                             <h4>Description:</h4>
                             <textarea id="tariffChangeContractDescription" className="inputModal" type="text" required="true" placeholder="Description" cols="18" rows="4" value={this.state.currentTatiff.description}></textarea>
-                            <h4>Cost:</h4>
+                            <h4>Cost in $:</h4>
                             <input id="tariffChangeContractCost" className="inputModal" type="text" required="true" placeholder="Cost in $" value={this.state.currentTatiff.cost}></input>
                             <h4>Options:</h4>
                             <div className="changeContractOptions">

@@ -96,7 +96,6 @@ class PersonalAccount extends react.Component{
                     <div id="userRole" className="userInfo">Your role: {localStorage.getItem("userRole")}</div>
                     <div id="contract" className="userInfo"></div>
                     <select className="contractSelect">
-                        
                         {   
                         this.state.info.map((idAndNumber)=>{
                                 return(

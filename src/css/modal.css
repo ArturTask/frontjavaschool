@@ -194,6 +194,16 @@ div.inlineOptionTitle{
 
 /* EDIT TARIFF MODAL */
 
+/* MODAL USER */
+
+.makeContractWithCustomer{ /* button */
+    padding: 5px;
+    border: 1px solid #b3b3b3;
+    border-radius: 10px;
+}
+
+/* MODAL USER */
+
 /* ADMIN modals */
 
 
