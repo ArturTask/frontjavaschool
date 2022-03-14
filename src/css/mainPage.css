@@ -126,4 +126,30 @@
 	border: 1px solid #147aeeb6;
 }
 
+.searchField{
+	margin: 10px auto;
+	border-radius: 10px;
+	padding: 5px;
+	background-color: #ffffff;
+	border: 1px solid #13a713;
+	text-align: center;
+}
 
+.searchFieldInput{
+	width: 300px;
+	border-radius: 10px;
+	padding: 5px;
+	border: 1px solid #13a713;
+	text-align: center;
+	font-size: 16px;
+	font-weight: bolder;
+}
+
+.searchField button{
+	min-width: 50px;
+	margin: 5px 5px;
+	border-radius: 10px;
+	padding: 5px;
+	border: 1px solid #13a713;
+	font-size: 14px;
+}

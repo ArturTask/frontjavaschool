@@ -124,7 +124,7 @@ export default class UsersModalTariff extends react.Component{
 
         if(localStorage.getItem("userRole")=="Admin"){//if we change tariff by admin
             contract={
-                phoneNumber:$("#usersPhoneNumberInput").val(),
+                phoneNumber:$("#usersPhoneNumberInput").val().slice(0,11),
                 userId:this.props.customerId,
                 tariffId:this.props.tariffId,
                 contractOptions:contractOptions
@@ -132,7 +132,7 @@ export default class UsersModalTariff extends react.Component{
         }
         else{ //if user changes tariff by himself
             contract={
-                phoneNumber:$("#usersPhoneNumberInput").val(),
+                phoneNumber:$("#usersPhoneNumberInput").val().slice(0,11),
                 userId:localStorage.getItem("userId"),
                 tariffId:this.props.tariffId,
                 contractOptions:contractOptions

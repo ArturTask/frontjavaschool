@@ -97,7 +97,7 @@ class MainPage extends React.Component{
             currTable = <TableUsers display={this.displayUserEdit}/>
         }
         else if(this.state.optionId=="adminOptionContracts"){
-            currTable = <TableContracts/>
+            currTable = <TableContracts display={this.displayUserEdit}/>
         }
 
         return(

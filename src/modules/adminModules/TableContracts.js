@@ -1,6 +1,8 @@
 import react from "react";
 import Requests from "../../HTTP/Requests.js";
 import Pagination from '../Pagination.js';
+import $ from 'jquery'
+import ModalUser from "./ModalUser.js";
 
 class tableContracts extends react.Component{
     constructor(props){
@@ -10,9 +12,13 @@ class tableContracts extends react.Component{
             info:[{id:1,phoneNumber:234,user:"vasya"},{id:1,phoneNumber:234,user:"vasya"},{id:1,phoneNumber:234,user:"vasya"},{id:1,phoneNumber:234,user:"vasya"},{id:1,phoneNumber:234,user:"vasya"},{id:1,phoneNumber:234,user:"vasya"},{id:1,phoneNumber:234,user:"vasya"}],
             totalElements: 6,
             elementsPerPage: 5,
-            currentPage: 1
+            currentPage: 1,
+            showModalWindow:false,
+            body:""
+
         }
         this.paginate = this.paginate.bind(this);
+        this.findUserByPhoneNumber = this.findUserByPhoneNumber.bind(this);
     }
 
     componentDidMount(){
@@ -23,6 +29,22 @@ class tableContracts extends react.Component{
 
     paginate = (pageNumber) => {
         this.setState({currentPage: pageNumber})
+    }
+
+    findUserByPhoneNumber(){
+        if(/[8]{1}[7]{3}[0-9]{7}$/.test($("#usersPhoneNumberInput").val())){
+            Requests.getFindUserByPhoneNumber($("#usersPhoneNumberInput").val().slice(0,11)).then((response)=>{
+                if(response.data.id==null){
+                    alert("user not found")
+                }
+                else{
+                    this.props.display(response.data.id,response.data.login);
+                }
+            })
+        }
+        else{
+            alert("incorrect phone number should be 8777******* \n* - any num")
+        }
     }
 
     
@@ -37,6 +59,10 @@ class tableContracts extends react.Component{
 
         return(
             <div>
+                <div className="inline searchField">
+                <input className="searchFieldInput" type="tel" id="usersPhoneNumberInput" name="phone" placeholder="search user by phone number" pattern="[8]{1}[7]{3}[0-9]{7}$" required></input>
+                    <button onClick={this.findUserByPhoneNumber}>find</button>
+                </div>
                 <table id="tableContracts" className="tableCustomers" >
                     <thead>
                         <tr>
@@ -50,7 +76,7 @@ class tableContracts extends react.Component{
                             currInfo.map(
                                 contract =>
                                 <tr > 
-                                    <td >{contract["userId"]}</td>
+                                    <td >{contract["contractId"]}</td>
                                     <td >{contract["phoneNumber"]}</td>
                                     <td >{contract["userName"]}</td>
                                 </tr>

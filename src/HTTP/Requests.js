@@ -22,6 +22,7 @@ const ISBLOCKEDURL = "http://localhost:8080/BackendJavaSchool/users/is_blocked_u
 const CHANGEBLOCKUSER = "http://localhost:8080/BackendJavaSchool/users/change_block_user_"
 const CHANGEBLOCKUSERBYADMIN = "http://localhost:8080/BackendJavaSchool/manage/change_block_user_"
 const GETALLCONTRACTSUSERINFO = "http://localhost:8080/BackendJavaSchool/manage/getAllContractsUserInfo"
+const FINDUSERBYPHONENUMBER = "http://localhost:8080/BackendJavaSchool/manage/find_user_by_phone_number_"
 
 class Requests{
     //test
@@ -113,6 +114,10 @@ class Requests{
 
     getAllContractsUserInfo(){
         return axios.get(GETALLCONTRACTSUSERINFO,config);
+    }
+
+    getFindUserByPhoneNumber(phoneNumber){
+        return axios.get(FINDUSERBYPHONENUMBER+phoneNumber,config);
     }
 
     //FOR CUSTOMERS
