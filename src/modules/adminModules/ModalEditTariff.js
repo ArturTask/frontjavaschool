@@ -181,6 +181,7 @@ export default class extends react.Component{
     }
 
     deleteOptionById(e){
+        e.preventDefault();
         let parentDiv = $(e.target).closest("div");
         var numberOptionId = parentDiv.find(".optionId").text()-1;
         var realCurrentOptionId = parentDiv.find(".optionId").attr("value");
@@ -194,11 +195,11 @@ export default class extends react.Component{
             });
         //}   
 
-        let newOptions = this.state.options;
-        newOptions.splice(numberOptionId,1);
-        for(let i=numberOptionId;i<newOptions.length;i++){
-            newOptions[i]=newOptions[i]-1;
-        }
+        let newOptions = this.state.options.slice(0,this.state.options.length-1);
+        // newOptions.splice(numberOptionId,1);
+        // for(let i=numberOptionId;i<newOptions.length;i++){
+        //     newOptions[i]=newOptions[i]-1;
+        // }
         this.setState({options:newOptions});
         
         let newCounter = this.state.counter;
@@ -225,6 +226,7 @@ export default class extends react.Component{
             <div id="modalEditTariffBody" className="modalBody">
                 <div id="modalEditTariffInfo">
                     <form>
+                        <h3>Tariff</h3>
                         <div className="inlineOptionTitle">Id: </div> <h3 className="inlineOptionTitle">{this.props.tariffId}</h3> <div id="inlineOptionStatus" className="inlineOptionTitle">status: </div> <h3 id="optionStatus" className="inlineOptionTitle activeStatus">Active</h3>
                         <h4>Title:</h4>
                         <input onChange={this.onChangeTitle} id="tariffEditTitle" className="inputModal" type="text" required="true" placeholder="Title" value={this.state.currentTatiff.title}></input>

@@ -48,21 +48,27 @@
 	text-align: center;
 }
 
-.tableCustomers tr td:first-child { /* for id - all tables*/
+.tableCustomers tr td:first-child { /* for id - all tables now -deleted*/
 	width: 10px
 }
 
+/* table tariffs */
+
 #tableTariffs tr td:nth-child(2){ /*for table tariffs*/
-	width: 30%	
+	width: 20%	
 }
 
 #tableTariffs tr td:nth-child(3){
-	width: 70%	
+	width: 80%	
 }
+
+/* table users */
 
 #tableUsers tr td:nth-child(2) {  /* for login */
 	width: 100%	
 }
+
+/* table contracts */
 
 #tableContracts tr td:nth-child(2){ /* for contracts */
 	width: 50%;
@@ -126,6 +132,36 @@
 	border: 1px solid #147aeeb6;
 }
 
+/* Tables header */
+
+.tableHeaderDiv{
+	padding: 5px;
+	width: 800px;
+	background-color: #ffffff;
+	margin: 10px auto;
+	text-align: center;
+	border-radius: 10px;
+	border: 1px solid #ffffff;
+	font-weight: bold;
+	font-size: 24px;
+}
+
+/* Main page / personal account header */
+
+.pageHeaderName{
+	background: linear-gradient(90deg, rgba(16,255,0,1) 0%, rgba(16,121,9,1) 50%, rgba(2,0,36,1)  100%);
+	margin-top: 10px;
+	background-color: rgb(255, 255, 255);
+    font-weight:bold;
+	color: rgb(255, 255, 255);
+    /* text-decoration-line: underline; */
+    padding: 15px 50px;
+	text-align: center;
+	font-size: 24px;
+}
+
+/* search field in yable contracts */
+
 .searchField{
 	margin: 10px auto;
 	border-radius: 10px;
@@ -133,6 +169,7 @@
 	background-color: #ffffff;
 	border: 1px solid #13a713;
 	text-align: center;
+	width: 600px;
 }
 
 .searchFieldInput{

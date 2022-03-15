@@ -103,6 +103,7 @@ class MainPage extends React.Component{
         return(
             <div>
                 <Header></Header>
+                <div className="pageHeaderName">Admin Main Page</div>
                 <div id="adminOptions">
                     <a id="adminOptionTariffs" href="#" onClick={this.chooseOption}>Manage tariffs</a>
                     <a id="adminOptionUsers" href="#" onClick={this.chooseOption}>Manage users</a>

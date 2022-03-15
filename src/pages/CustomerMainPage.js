@@ -46,6 +46,7 @@ class CustomerMainPage extends React.Component{
         return(
             <div>
                 <Header></Header>
+                <div className="pageHeaderName">Customer Main Page</div>
                 {(this.state.showModalWindow) ? <ModalWindow onClose={this.onClose} body={this.state.body} />:<div></div>}
                 <UsersTableTariff display={this.displayUsersTariff}/>
                 

@@ -51,12 +51,23 @@ export default class ModalUser extends react.Component{
     }
 
     showContract(){ //to change existing contract
-        if(this.state.info.length>0){
-            this.setState({
+
+        if(this.state.info.length>0){ //if user has contracts
+
+            this.setState({ // set body to div so that UsersModalContract ComponentDidMount works (wothout it it wont work)
+                showChangeContractModalWindow:true,
+                body:<div></div>,
+                showSignModalWindow:false
+            })
+
+            setTimeout(() => {
+                this.setState({
                     showChangeContractModalWindow:true,
                     body:<UsersModalContract phoneNumber={$(".contractSelect").find(":selected").text()} contractId={$(".contractSelect").find(":selected").val()} customerId={this.props.userId}/>,
                     showSignModalWindow:false
-                })
+                })    
+            }, 500);
+            
         }
     }
 
@@ -65,7 +76,8 @@ export default class ModalUser extends react.Component{
         Requests.getAllActiveTariffs().then((response)=>{
             response.data.map(tariff=>{
                 let currTariff = {
-                    id:tariff.id
+                    id:tariff.id,
+                    title:tariff.title
                 }
                 serverData.push(currTariff)
             });
@@ -74,12 +86,12 @@ export default class ModalUser extends react.Component{
                 showSignModalWindow:true,
                 body:
                 <div>
-                    <select className="tariffToChoose" onChange={this.showChosenTariff}>
-                            <option disabled value="">id</option>
+                    <select className="tariffToChoose" onChange={this.displayUsersTariff}>
+                            <option disabled value="">tariff</option>
                             {
                                 this.state.tariffs.map((tariff)=>{
                                     return(
-                                        <option>{tariff.id}</option>
+                                        <option value={tariff.id}>{tariff.title}</option>
                                 );
                                 })
                             }
@@ -115,13 +127,13 @@ export default class ModalUser extends react.Component{
         <div>
             <div id="modalUserBody" className="modalBody">
                 <div id="modalUserInfo">
-                    <h1>Id: {this.props.userId} User {this.props.userName}</h1>
+                    <h1>User: {this.props.userName}</h1><h4>(Id: {this.props.userId})</h4>
                     
                     <div className="beforeBlock">status: </div>
                     <input className="isBlocked" type="text" value={this.state.status}></input>
                     <button onClick={this.changeBlockUser} className="changeBlock">Change user status</button>
                     
-                    <select className="contractSelect">
+                    <select className="contractSelect" onChange={this.showContract}>
                         {   
                         this.state.info.map((idAndNumber)=>{
                                 return(

@@ -11,7 +11,8 @@ export default class UsersModalTariff extends react.Component{
             counter:1,
             currentTatiff:{},
             currentOptions:[{}], /* options */
-            initialNumberOfOptions:0
+            initialNumberOfOptions:0,
+            currentPhoneNumber:""
             
         }
         this.showValueOfRadio=this.showValueOfRadio.bind(this);
@@ -19,6 +20,7 @@ export default class UsersModalTariff extends react.Component{
         this.checkPhoneNumber = this.checkPhoneNumber.bind(this);
         this.signContract = this.signContract.bind(this);
         // this.updateSelectOptions = this.updateSelectOptions.bind(this); used with componentDidUpdate
+        this.changePhoneNumber = this.changePhoneNumber.bind(this);
     }
 
     componentDidMount(){
@@ -149,13 +151,24 @@ export default class UsersModalTariff extends react.Component{
 
     }
 
+
+    changePhoneNumber(e){
+        if(e.target.value.slice(0,4)!=="8777"){
+            this.setState({currentPhoneNumber: "8777"})
+        }
+        else if(e.target.value.length<=11){
+            this.setState({currentPhoneNumber: e.target.value})
+        }
+    }
+
     render(){
         return(
         <div>
             <div id="modalUsersTariffBody" className="modalBody">
                 <div id="modalUsersTariffInfo">
                     <form>
-                        <h3>Id: {this.props.tariffId}</h3>
+                        <h3>Tariff</h3>
+                        {/* <h4>Id: {this.props.tariffId}</h4> */}
                         <h4>Title:</h4>
                         <input id="tariffUsersTitle" className="inputModal" type="text" required="true" placeholder="Title" value={this.state.currentTatiff.title}></input>
                         <h4>Description:</h4>
@@ -176,7 +189,7 @@ export default class UsersModalTariff extends react.Component{
                                         if(this.state.currentOptions[optionId-1].optionType=="INTERNET"){
                                             return(
                                             <div numId={optionId-1} id={this.state.currentOptions[optionId-1].id} className="oneOption">
-                                                <div className="optionId" value={this.state.currentOptions[optionId-1].id}>{optionId}</div>
+                                                <div className="optionId" value={this.state.currentOptions[optionId-1].id}>{" "}</div>
                                                 <input type="radio" className="radioInternet" value={this.state.currentOptions[optionId-1].id} onChange={this.showValueOfRadio} name="intrenet_radio_button" contractOptionName={this.state.currentOptions[optionId-1].name} contractOptionCost={this.state.currentOptions[optionId-1].cost} />
                                                 <input className="optionName" placeholder="option" required="true" value={this.state.currentOptions[optionId-1].name}></input>
                                                 <input className="optionCost" placeholder="option" required="true" value={this.state.currentOptions[optionId-1].cost}></input>
@@ -198,7 +211,7 @@ export default class UsersModalTariff extends react.Component{
                                         if(this.state.currentOptions[optionId-1].optionType=="MINUTES"){
                                             return(
                                             <div numId={optionId-1} id={this.state.currentOptions[optionId-1].id} className="oneOption">
-                                                <div className="optionId" value={this.state.currentOptions[optionId-1].id}>{optionId}</div>
+                                                <div className="optionId" value={this.state.currentOptions[optionId-1].id}>{" "}</div>
                                                 <input type="radio" className="radioMinutes" value={this.state.currentOptions[optionId-1].id} onChange={this.showValueOfRadio} name="minutes_radio_button" contractOptionName={this.state.currentOptions[optionId-1].name} contractOptionCost={this.state.currentOptions[optionId-1].cost} />
                                                 <input className="optionName" placeholder="option" required="true" value={this.state.currentOptions[optionId-1].name}></input>
                                                 <input className="optionCost" placeholder="option" required="true" value={this.state.currentOptions[optionId-1].cost}></input>
@@ -220,7 +233,7 @@ export default class UsersModalTariff extends react.Component{
                                         if(this.state.currentOptions[optionId-1].optionType=="MESSAGES"){
                                             return(
                                             <div numId={optionId-1} id={this.state.currentOptions[optionId-1].id} className="oneOption">
-                                                <div className="optionId" value={this.state.currentOptions[optionId-1].id}>{optionId}</div>
+                                                <div className="optionId" value={this.state.currentOptions[optionId-1].id}>{" "}</div>
                                                 <input type="radio" className="radioMessages" value={this.state.currentOptions[optionId-1].id} onChange={this.showValueOfRadio} name="messages_radio_button" contractOptionName={this.state.currentOptions[optionId-1].name} contractOptionCost={this.state.currentOptions[optionId-1].cost} />
                                                 <input className="optionName" placeholder="option" required="true" value={this.state.currentOptions[optionId-1].name}></input>
                                                 <input className="optionCost" placeholder="option" required="true" value={this.state.currentOptions[optionId-1].cost}></input>
@@ -242,7 +255,7 @@ export default class UsersModalTariff extends react.Component{
                                         if(this.state.currentOptions[optionId-1].optionType=="UTIL"){
                                             return(
                                             <div numId={optionId-1} id={this.state.currentOptions[optionId-1].id} className="oneOption">
-                                                <div className="optionId" value={this.state.currentOptions[optionId-1].id}>{optionId}</div>
+                                                <div className="optionId" value={this.state.currentOptions[optionId-1].id}>{" "}</div>
                                                 <input type="checkbox" className="checkboxUtil" value={this.state.currentOptions[optionId-1].id} onChange={this.showChosenCheckButtons} name="util_checkbox_button" contractOptionName={this.state.currentOptions[optionId-1].name} contractOptionCost={this.state.currentOptions[optionId-1].cost}  />
                                                 <input className="optionName" placeholder="option" required="true" value={this.state.currentOptions[optionId-1].name}></input>
                                                 <input className="optionCost" placeholder="option" required="true" value={this.state.currentOptions[optionId-1].cost}></input>
@@ -258,7 +271,7 @@ export default class UsersModalTariff extends react.Component{
 
                             <div id="usersPhoneNumberDiv" className="phoneNumberDiv">
                                 <input type="text" id="usersPhoneNumberPattern" value={"Enter your new phone number only 8777*******  * - any 7 numbers "}></input>
-                                <input type="tel" id="usersPhoneNumberInput" name="phone" placeholder="8777*******" pattern="[8]{1}[7]{3}[0-9]{7}$" required></input>                            
+                                <input type="tel" id="usersPhoneNumberInput" name="phone" placeholder="8777*******" pattern="[8]{1}[7]{3}[0-9]{7}$" required value={this.state.currentPhoneNumber} onChange={this.changePhoneNumber} onFocus={this.changePhoneNumber}></input>                            
                             </div>
                         </div>
                         <button className="submitModal" id="signContract" onClick={this.signContract}>sign contract</button>

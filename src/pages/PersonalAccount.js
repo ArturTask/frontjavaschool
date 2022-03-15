@@ -66,11 +66,14 @@ class PersonalAccount extends react.Component{
     }
 
     showContract(){
-        if(localStorage.getItem("userRole")=="Customer"){
+        if($(".contractSelect option").length>0){
             this.setState(
                 {showModalWindow:true,
                     body:<UsersModalContract phoneNumber={$(".contractSelect").find(":selected").text()} contractId={$(".contractSelect").find(":selected").val()}/>
                 })
+        }
+        else{
+            alert("no available contracts")
         }
     }
 
@@ -87,6 +90,7 @@ class PersonalAccount extends react.Component{
         <div className="bodyPersonalAccount">
             { (this.state.showModalWindow)?<ModalWindow onClose={this.onClose} body={this.state.body} />:<div></div>}
             <Header></Header>
+            <div className="pageHeaderName">Personal Account</div>
             <div id="personalAccountBody">
                 <div id="personalInfo">
                     <img src={logo}/>

@@ -8,17 +8,19 @@ class tableContracts extends react.Component{
     constructor(props){
         super(props)
         this.state={
-            head:["Id","Phone number","User"],
+            head:[" ","Phone number","User"],
             info:[{id:1,phoneNumber:234,user:"vasya"},{id:1,phoneNumber:234,user:"vasya"},{id:1,phoneNumber:234,user:"vasya"},{id:1,phoneNumber:234,user:"vasya"},{id:1,phoneNumber:234,user:"vasya"},{id:1,phoneNumber:234,user:"vasya"},{id:1,phoneNumber:234,user:"vasya"}],
             totalElements: 6,
             elementsPerPage: 5,
             currentPage: 1,
             showModalWindow:false,
-            body:""
+            body:"",
+            currentPhoneNumber: ""
 
         }
         this.paginate = this.paginate.bind(this);
         this.findUserByPhoneNumber = this.findUserByPhoneNumber.bind(this);
+        this.changePhoneNumber = this.changePhoneNumber.bind(this);
     }
 
     componentDidMount(){
@@ -31,7 +33,8 @@ class tableContracts extends react.Component{
         this.setState({currentPage: pageNumber})
     }
 
-    findUserByPhoneNumber(){
+    findUserByPhoneNumber(e){
+        e.preventDefault();
         if(/[8]{1}[7]{3}[0-9]{7}$/.test($("#usersPhoneNumberInput").val())){
             Requests.getFindUserByPhoneNumber($("#usersPhoneNumberInput").val().slice(0,11)).then((response)=>{
                 if(response.data.id==null){
@@ -47,7 +50,15 @@ class tableContracts extends react.Component{
         }
     }
 
-    
+
+    changePhoneNumber(e){
+        if(e.target.value.slice(0,4)!=="8777"){
+            this.setState({currentPhoneNumber: "8777"})
+        }
+        else if(e.target.value.length<=11){
+            this.setState({currentPhoneNumber: e.target.value})
+        }
+    }
 
 
     render(){
@@ -59,10 +70,13 @@ class tableContracts extends react.Component{
 
         return(
             <div>
-                <div className="inline searchField">
-                <input className="searchFieldInput" type="tel" id="usersPhoneNumberInput" name="phone" placeholder="search user by phone number" pattern="[8]{1}[7]{3}[0-9]{7}$" required></input>
-                    <button onClick={this.findUserByPhoneNumber}>find</button>
-                </div>
+                <div className="tableHeaderDiv">Contracts</div>
+                <form>
+                    <div className="inline searchField">
+                        <input className="searchFieldInput" type="tel" id="usersPhoneNumberInput" name="phone" placeholder="search user by phone number" pattern="[8]{1}[7]{3}[0-9]{7}$" required value={this.state.currentPhoneNumber} onChange={this.changePhoneNumber} onFocus={this.changePhoneNumber}></input>
+                        <button onClick={this.findUserByPhoneNumber}>find</button>
+                    </div>
+                </form>
                 <table id="tableContracts" className="tableCustomers" >
                     <thead>
                         <tr>
@@ -76,7 +90,7 @@ class tableContracts extends react.Component{
                             currInfo.map(
                                 contract =>
                                 <tr > 
-                                    <td >{contract["contractId"]}</td>
+                                    <td ></td> {/*contract["contractId"]*/}
                                     <td >{contract["phoneNumber"]}</td>
                                     <td >{contract["userName"]}</td>
                                 </tr>

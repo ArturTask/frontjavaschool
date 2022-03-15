@@ -13,7 +13,8 @@ export default class UsersModalContract extends react.Component{
             tariff:{},
             contractOptions:[],
             showWarning:false,
-            showChangeContract:false
+            showChangeContract:false,
+
             
         }
         this.changeContract = this.changeContract.bind(this);

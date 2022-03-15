@@ -7,7 +7,7 @@ class TableTariffs extends react.Component{
     constructor(props){
         super(props);
         this.state={
-            head:["Id","Title","Description","Status"],
+            head:[" ","Title","Description","Status"],
             info:[{id:1,title:"MegaSUPERBUPER",description:"vasya"}],
             totalElements: 0,
             elementsPerPage: 5,
@@ -54,6 +54,7 @@ class TableTariffs extends react.Component{
 
         return(
             <div>
+                <div className="tableHeaderDiv">Tariffs</div>
                 <table id="tableTariffs" className="tableCustomers" >
                 <thead>
                     <tr>
@@ -68,7 +69,7 @@ class TableTariffs extends react.Component{
                         currInfo.map(
                             tariff =>
                             <tr > 
-                                <td className="currentTariffId" currentTariffId={tariff["id"]}>{tariff["id"]}</td>
+                                <td className="currentTariffId" currentTariffId={tariff["id"]}></td>
                                 <td className="currentTariffTitle">{tariff["title"]}</td>
                                 <td className="currentTariffDescription">{tariff["description"]}</td>
                                 <td className="currentTariffActive">{tariff["active"]?"Active":"Inactive"}</td>

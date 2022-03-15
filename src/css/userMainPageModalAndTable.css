@@ -13,11 +13,11 @@
 }
 
 #usersTableTariffs tr td:nth-child(2){ /*for table tariffs*/
-	width: 30%	
+	width: 20%	
 }
 
 #usersTableTariffs tr td:nth-child(3){
-	width: 55%	
+	width: 65%	
 }
 
 #usersTableTariffs tr td:nth-child(4){

@@ -27,7 +27,8 @@ export default class ChangeTariffModal extends react.Component{
         Requests.getAllActiveTariffs().then((response)=>{
             response.data.map(tariff=>{
                 let currTariff = {
-                    id:tariff.id
+                    id:tariff.id,
+                    title:tariff.title
                 }
                 serverData.push(currTariff)
             });
@@ -43,7 +44,7 @@ export default class ChangeTariffModal extends react.Component{
 
     showChosenTariff(e){
         this.setState({options:[]}) //clean old options of prev tariff
-        Requests.getTariffById(e.target.value).then((response)=>{
+        Requests.getTariffById($(e.target).val()).then((response)=>{
             this.setState(
                 {
                     currentTatiff:response.data,
@@ -164,13 +165,13 @@ export default class ChangeTariffModal extends react.Component{
               close
             </button>
             <div className="changeContractContent" >
-                <h3 >new tariff id</h3>
+                <h3 >Choose new tariff</h3>
                 <select className="tariffToChoose" onChange={this.showChosenTariff}>
-                    <option disabled value="">id</option>
+                    <option disabled value="">Tariff</option>
                     {
                         this.state.tariffs.map((tariff)=>{
                             return(
-                                <option>{tariff.id}</option>
+                                <option value={tariff.id}>{tariff.title}</option>
                         );
                         })
                     }
@@ -199,7 +200,7 @@ export default class ChangeTariffModal extends react.Component{
                                             if(this.state.currentOptions[optionId-1].optionType=="INTERNET"){
                                                 return(
                                                 <div numId={optionId-1} id={this.state.currentOptions[optionId-1].id} className="oneOption">
-                                                    <div className="optionId" value={this.state.currentOptions[optionId-1].id}>{optionId}</div>
+                                                    <div className="optionId" value={this.state.currentOptions[optionId-1].id}>{" "}</div>
                                                     <input type="radio" className="radioInternet" value={this.state.currentOptions[optionId-1].id} onChange={this.showValueOfRadio} name="intrenet_radio_button" contractOptionName={this.state.currentOptions[optionId-1].name} contractOptionCost={this.state.currentOptions[optionId-1].cost} />
                                                     <input className="optionName" placeholder="option" required="true" value={this.state.currentOptions[optionId-1].name}></input>
                                                     <input className="optionCost" placeholder="option" required="true" value={this.state.currentOptions[optionId-1].cost}></input>
@@ -221,7 +222,7 @@ export default class ChangeTariffModal extends react.Component{
                                             if(this.state.currentOptions[optionId-1].optionType=="MINUTES"){
                                                 return(
                                                 <div numId={optionId-1} id={this.state.currentOptions[optionId-1].id} className="oneOption">
-                                                    <div className="optionId" value={this.state.currentOptions[optionId-1].id}>{optionId}</div>
+                                                    <div className="optionId" value={this.state.currentOptions[optionId-1].id}>{" "}</div>
                                                     <input type="radio" className="radioMinutes" value={this.state.currentOptions[optionId-1].id} onChange={this.showValueOfRadio} name="minutes_radio_button" contractOptionName={this.state.currentOptions[optionId-1].name} contractOptionCost={this.state.currentOptions[optionId-1].cost} />
                                                     <input className="optionName" placeholder="option" required="true" value={this.state.currentOptions[optionId-1].name}></input>
                                                     <input className="optionCost" placeholder="option" required="true" value={this.state.currentOptions[optionId-1].cost}></input>
@@ -243,7 +244,7 @@ export default class ChangeTariffModal extends react.Component{
                                             if(this.state.currentOptions[optionId-1].optionType=="MESSAGES"){
                                                 return(
                                                 <div numId={optionId-1} id={this.state.currentOptions[optionId-1].id} className="oneOption">
-                                                    <div className="optionId" value={this.state.currentOptions[optionId-1].id}>{optionId}</div>
+                                                    <div className="optionId" value={this.state.currentOptions[optionId-1].id}>{" "}</div>
                                                     <input type="radio" className="radioMessages" value={this.state.currentOptions[optionId-1].id} onChange={this.showValueOfRadio} name="messages_radio_button" contractOptionName={this.state.currentOptions[optionId-1].name} contractOptionCost={this.state.currentOptions[optionId-1].cost} />
                                                     <input className="optionName" placeholder="option" required="true" value={this.state.currentOptions[optionId-1].name}></input>
                                                     <input className="optionCost" placeholder="option" required="true" value={this.state.currentOptions[optionId-1].cost}></input>
@@ -265,7 +266,7 @@ export default class ChangeTariffModal extends react.Component{
                                             if(this.state.currentOptions[optionId-1].optionType=="UTIL"){
                                                 return(
                                                 <div numId={optionId-1} id={this.state.currentOptions[optionId-1].id} className="oneOption">
-                                                    <div className="optionId" value={this.state.currentOptions[optionId-1].id}>{optionId}</div>
+                                                    <div className="optionId" value={this.state.currentOptions[optionId-1].id}>{" "}</div>
                                                     <input type="checkbox" className="checkboxUtil" value={this.state.currentOptions[optionId-1].id} onChange={this.showChosenCheckButtons} name="util_checkbox_button" contractOptionName={this.state.currentOptions[optionId-1].name} contractOptionCost={this.state.currentOptions[optionId-1].cost}  />
                                                     <input className="optionName" placeholder="option" required="true" value={this.state.currentOptions[optionId-1].name}></input>
                                                     <input className="optionCost" placeholder="option" required="true" value={this.state.currentOptions[optionId-1].cost}></input>

@@ -7,7 +7,7 @@ class TableUsers extends react.Component{
     constructor(props){
         super(props)
         this.state={
-            head:["Id","Login"],
+            head:[" ","Login"],
             info:[],
             totalElements: 0,
             elementsPerPage: 5,
@@ -57,6 +57,7 @@ class TableUsers extends react.Component{
 
         return(
         <div>
+            <div className="tableHeaderDiv">Users</div>
             <table id="tableUsers" className="tableCustomers" >
                 <thead>
                     <tr>
@@ -70,7 +71,7 @@ class TableUsers extends react.Component{
                         currInfo.map(
                             currentUser =>
                             <tr > 
-                                <td className="currentUserId" userId={currentUser["id"]}>{currentUser["id"]}</td>
+                                <td className="currentUserId" userId={currentUser["id"]}></td>
                                 <td className="currentUserName">{currentUser["login"]}</td>
                                 <button id="showUser" onClick={this.makeMeHappy}>edit</button>
                             </tr>
