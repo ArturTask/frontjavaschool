@@ -87,6 +87,7 @@ export default class extends react.Component{
     }
 
     onChangeOptionType(e){
+        //very important!! to set selected value I write value in <select> not selected in option
         let numId = $(e.target).attr("numId");
         let newCurrentOptions = this.state.currentOptions;
         newCurrentOptions[numId].optionType = e.target.value;
@@ -116,7 +117,7 @@ export default class extends react.Component{
             optionCosts.push($(el).val());
         })
         $(".optionType").each((id,el)=>{
-            optionTypes.push($(el).find(":selected").val()); //get atribute value of selected option from select element
+            optionTypes.push($(el).find(":selected").val()); //get option type value of selected option from select element
         })
         $(".optionId").each((id,el)=>{
             optionIds.push($(el).attr("value")); 
@@ -175,6 +176,7 @@ export default class extends react.Component{
             id: "-1",
             name: "",
             optionType: "INTERNET",
+            cost:0.0,
             tariffId: this.state.currentTatiff.id
         })
         this.setState({options:newOptions, counter:this.state.counter+1,currentOptions:newCurrentOptions});
@@ -185,6 +187,7 @@ export default class extends react.Component{
         let parentDiv = $(e.target).closest("div");
         var numberOptionId = parentDiv.find(".optionId").text()-1;
         var realCurrentOptionId = parentDiv.find(".optionId").attr("value");
+        $(".optionType option:selected").removeAttr("selected");
         
         //if(numberOptionId<this.state.initialNumberOfOptions){//if we delete existing option
             let newCurrentOptions = this.state.currentOptions;
@@ -196,10 +199,6 @@ export default class extends react.Component{
         //}   
 
         let newOptions = this.state.options.slice(0,this.state.options.length-1);
-        // newOptions.splice(numberOptionId,1);
-        // for(let i=numberOptionId;i<newOptions.length;i++){
-        //     newOptions[i]=newOptions[i]-1;
-        // }
         this.setState({options:newOptions});
         
         let newCounter = this.state.counter;
@@ -208,10 +207,10 @@ export default class extends react.Component{
         }
         this.setState({counter:newCounter});
 
-        $("div.oneOption select").each((id,el)=>{ //to proper change optionType
-            $(el).find("option[value=\""+this.state.currentOptions[$(el).attr("numId")].optionType+"\"").attr("selected","selected");
+        // $("div.oneOption select").each((id,el)=>{ //to proper change optionType
+        //     $(el).find("option[value=\""+this.state.currentOptions[$(el).attr("numId")].optionType+"\"").attr("selected","selected");
 
-        })
+        // })
 
     }
 
@@ -239,26 +238,36 @@ export default class extends react.Component{
                             {
                             this.state.options.map(
                                 optionId=>
-                                    <div numId={optionId-1} id={this.state.currentOptions[optionId-1].id} className="oneOption">
-                                        <div className="optionId" value={this.state.currentOptions[optionId-1].id}>{optionId}</div>
-                                        <input onChange={this.onChangeOptionName} className="optionName" placeholder="option" required="true" value={this.state.currentOptions[optionId-1].name}></input>
-                                        <input onChange={this.onChangeOptionCost} className="optionCost" value={this.state.currentOptions[optionId-1].cost} placeholder="cost in $" required="true"></input>
-                                        <select onChange={this.onChangeOptionType} numId={optionId-1} id={"select"+this.state.currentOptions[optionId-1].id} className="optionType">
-                                            <option disabled>Tariff type</option>
-                                            <option selected value={this.state.currentOptions[optionId-1].optionType}>{this.state.currentOptions[optionId-1].optionType}</option>
-                                            <option value="INTERNET">INTERNET</option>
-                                            <option value="MINUTES">MINUTES</option>
-                                            <option value="MESSAGES">MESSAGES</option>
-                                            <option value="UTIL">UTIL</option>
-                                        </select>
-                                        <button className="deleteOptionButton" onClick={this.deleteOptionById}>del</button>
-                                    </div>
+                                    {
+                                        let currentOptions=["INTERNET","MINUTES","MESSAGES","UTIL"];
+                                        currentOptions.splice(currentOptions.indexOf(this.state.currentOptions[optionId-1].optionType),1);
+
+                                        return(
+                                        <div numId={optionId-1} id={this.state.currentOptions[optionId-1].id} className="oneOption">
+                                            <div className="optionId" value={this.state.currentOptions[optionId-1].id}>{optionId}</div>
+                                            <input onChange={this.onChangeOptionName} className="optionName" placeholder="option" required="true" value={this.state.currentOptions[optionId-1].name}></input>
+                                            <input onChange={this.onChangeOptionCost} className="optionCost" value={this.state.currentOptions[optionId-1].cost} placeholder="cost in $" required="true"></input>
+                                            <select value={this.state.currentOptions[optionId-1].optionType} onChange={this.onChangeOptionType} numId={optionId-1} id={"select"+this.state.currentOptions[optionId-1].id} className="optionType">
+                                                <option disabled>Tariff type</option>
+                                                <option value={this.state.currentOptions[optionId-1].optionType}>{this.state.currentOptions[optionId-1].optionType}</option>
+                                                <option value={currentOptions[0]}>{currentOptions[0]}</option>
+                                                <option value={currentOptions[1]}>{currentOptions[1]}</option>
+                                                <option value={currentOptions[2]}>{currentOptions[2]}</option>
+                                                {/* <option value="INTERNET">INTERNET</option>
+                                                <option value="MINUTES">MINUTES</option>
+                                                <option value="MESSAGES">MESSAGES</option>
+                                                <option value="UTIL">UTIL</option> */}
+                                            </select>
+                                            <button className="deleteOptionButton" onClick={this.deleteOptionById}>delete</button>
+                                        </div>
+                                        )
+                                    }
                                 )
                             }
                         </div>
                         <button onClick={this.addOption}>add Option</button>
 
-                        <button className="submitModal" id="addEditTariff" onClick={this.editTariff}>send</button>
+                        <button className="submitModal" id="addEditTariff" onClick={this.editTariff}>update tariff</button>
                     </form>
                     
                 </div>

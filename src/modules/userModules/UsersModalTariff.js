@@ -142,12 +142,17 @@ export default class UsersModalTariff extends react.Component{
         }
         
         e.preventDefault();
-        Requests.postSignContract(contract).then((response)=>{
-            alert(response.data.message);
-            if(response.data.message=="Success"){
-                window.location.reload();
-            }
-        });
+        if(/[8]{1}[7]{3}[0-9]{7}$/.test($("#usersPhoneNumberInput").val())){
+            Requests.postSignContract(contract).then((response)=>{
+                alert(response.data.message);
+                if(response.data.message=="Success"){
+                    window.location.reload();
+                }
+            });
+        }
+        else{
+            alert("incorrect phone number")
+        }
 
     }
 

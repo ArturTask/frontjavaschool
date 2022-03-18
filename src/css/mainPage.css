@@ -64,6 +64,10 @@
 
 /* table users */
 
+#tableUsers{
+	width: 20%;
+}
+
 #tableUsers tr td:nth-child(2) {  /* for login */
 	width: 100%	
 }
