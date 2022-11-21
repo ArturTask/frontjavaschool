@@ -143,18 +143,13 @@ export default class extends react.Component{
             options:chosenOptions
         }
 
-        if(title!=="" && !optionNames.includes("") && !optionCosts.includes("")){ //if title is filled and option names too
-            // INFO: optionId = -1 if its new TEST
-            // for (let i = 0; i < currTariff.options.length; i++) {
-            //     alert(currTariff.options[i].name+"  "+currTariff.options[i].id)
-            // }
-
-            // for (let i = 0; i < currTariff.options.length; i++) {
-            //     alert(currTariff.options[i].name+"  "+currTariff.options[i].id)
-            // }
-
-            Requests.postUpdateTariff(currTariff);
-            this.props.refresh(); //reload this f*** page
+        if(title!=="" && descr!=="" && cost!=="" && !optionNames.includes("") && !optionCosts.includes("")){ //if title is filled and option names too
+            Requests.postUpdateTariff(currTariff).then((response)=>{
+                alert(response.data.response)
+                if(response.data.response=="Success"){
+                    this.props.refresh(); //reload this f*** page
+                }
+            });
         }
         // this.props.refresh();
 
@@ -176,7 +171,7 @@ export default class extends react.Component{
             id: "-1",
             name: "",
             optionType: "INTERNET",
-            cost:0.0,
+            cost:-1,
             tariffId: this.state.currentTatiff.id
         })
         this.setState({options:newOptions, counter:this.state.counter+1,currentOptions:newCurrentOptions});
@@ -233,7 +228,7 @@ export default class extends react.Component{
                         <textarea onChange={this.onChangeDescription} id="tariffEditDescription" className="inputModal" type="text" required="true" placeholder="Description" cols="18" rows="4" value={this.state.currentTatiff.description}></textarea>
                         <h4>Cost in $:</h4>
                         <input onChange={this.onChangeCost} id="tariffEditCost" className="inputModal" type="text" required="true" placeholder="Cost in $" value={this.state.currentTatiff.cost}></input>
-                        <h4>Options:</h4>
+                        <h4>Options in $:</h4>
                         <div id="editOptions">
                             {
                             this.state.options.map(

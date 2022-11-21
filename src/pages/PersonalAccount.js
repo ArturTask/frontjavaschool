@@ -6,6 +6,7 @@ import Requests from "../HTTP/Requests";
 import ModalWindow from "../modules/ModalWindow";
 import UsersModalContract from "../modules/userModules/UsersModalContract";
 import $ from "jquery";
+import { Navigate } from "react-router-dom";
 
 class PersonalAccount extends react.Component{
     constructor(props){
@@ -15,7 +16,8 @@ class PersonalAccount extends react.Component{
             info:[],
             showModalWindow:false,
             body:"",
-            status:""
+            status:"",
+            contractInfo:""
         }
         this.onClose = this.onClose.bind(this);
         this.refresh = this.refresh.bind(this);
@@ -25,7 +27,8 @@ class PersonalAccount extends react.Component{
 
     componentDidMount(){
         if(localStorage.getItem("userRole")=="Admin"){
-            document.getElementById("contract").innerHTML="Admins rules";
+            // document.getElementById("contract").innerHTML="Admins rules";
+            this.setState({contractInfo:"Admins rules"})
         }
         else{
             //get contract from Requests by get
@@ -85,6 +88,9 @@ class PersonalAccount extends react.Component{
     }
 
     render(){
+        if(localStorage.getItem("isAuthorized")==0){
+            return(<Navigate to="/"></Navigate>);
+        }
         
         return(
         <div className="bodyPersonalAccount">
@@ -98,7 +104,7 @@ class PersonalAccount extends react.Component{
                     <input className="isBlocked" type="text" value={this.state.status}></input>
                     <div id="userName" className="userInfo">Your username: {localStorage.getItem("userName")}</div>
                     <div id="userRole" className="userInfo">Your role: {localStorage.getItem("userRole")}</div>
-                    <div id="contract" className="userInfo"></div>
+                    <div id="contract" className="userInfo">{this.state.contractInfo}</div>
                     <select className="contractSelect">
                         {   
                         this.state.info.map((idAndNumber)=>{
