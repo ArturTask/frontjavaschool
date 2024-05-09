@@ -33,13 +33,13 @@
     background: linear-gradient(145deg, rgba(16,255,0,1) 0%, rgba(16,121,9,1) 50%, rgba(2,0,36,1)  100%);
     
   }
-
+/* join the best mobile operator in the world text */
   #ad h1{
     z-index: 1;
     font-size: 40px;
     margin-top: 80px;
     /* make the background text sized and make text transparent to see the background through */
-    background: linear-gradient(145deg, #000000 0%, #214761 50%, #040804);
+    background: linear-gradient(145deg, #28620d 0%, #214761 50%, #040804);
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;

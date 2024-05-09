@@ -4,25 +4,31 @@ const config = {
         "Authorization": "Bearer " + localStorage.getItem("token") 
     }
 };
-const SOMEURL = "http://localhost:8080/BackendJavaSchool/proba/data";
-const LOGINURL = "http://localhost:8080/BackendJavaSchool/auth/log_in";
-const REGURL = "http://localhost:8080/BackendJavaSchool/auth/reg";
-const GETALLUSERSURL = "http://localhost:8080/BackendJavaSchool/manage/users";
-const ADDTARIFURL = "http://localhost:8080/BackendJavaSchool/tariff/add_new";
-const GETALLTARIFFSURL = "http://localhost:8080/BackendJavaSchool/tariff/get_all_tariffs";
-const GETTARIFFBYID = "http://localhost:8080/BackendJavaSchool/tariff/find_tariff_";
-const UPDATETARIFFBYID = "http://localhost:8080/BackendJavaSchool/tariff/update_tariff";
-const DELETETARIFF = "http://localhost:8080/BackendJavaSchool/tariff/delete_";
-const GETALLACTIVETARIFFSURL = "http://localhost:8080/BackendJavaSchool/tariff/get_all_active_tariffs";
-const SIGNCONTRACTURL = "http://localhost:8080/BackendJavaSchool/contracts/sign";
-const GETCONTRACTIDSANDPHONENUMBERS = "http://localhost:8080/BackendJavaSchool/contracts/contract_ids_and_phone_numbers_of_user_"; 
-const GETCONTRACT = "http://localhost:8080/BackendJavaSchool/contracts/get_contract";
-const DELETECONTRACT = "http://localhost:8080/BackendJavaSchool/contracts/delete_contract_";
-const ISBLOCKEDURL = "http://localhost:8080/BackendJavaSchool/users/is_blocked_user_"
-const CHANGEBLOCKUSER = "http://localhost:8080/BackendJavaSchool/users/change_block_user_"
-const CHANGEBLOCKUSERBYADMIN = "http://localhost:8080/BackendJavaSchool/manage/change_block_user_"
-const GETALLCONTRACTSUSERINFO = "http://localhost:8080/BackendJavaSchool/manage/getAllContractsUserInfo"
-const FINDUSERBYPHONENUMBER = "http://localhost:8080/BackendJavaSchool/manage/find_user_by_phone_number_"
+
+// const BASEURL = "http://localhost:8080/"
+const BASEURL = "http://localhost:8080/BackendJavaSchool/"
+// const BASEURL = "https://bba4onrcu4db9d1lcqq6.containers.yandexcloud.net/"
+// const BASEURL = "http://localhost:5000/"
+// const BASEURL = "http://51.250.66.139:5000/"
+const SOMEURL = BASEURL + "proba/data";
+const LOGINURL = BASEURL + "auth/log_in";
+const REGURL = BASEURL + "auth/reg";
+const GETALLUSERSURL = BASEURL + "manage/users";
+const ADDTARIFURL = BASEURL + "tariff/add_new";
+const GETALLTARIFFSURL = BASEURL + "tariff/get_all_tariffs";
+const GETTARIFFBYID = BASEURL + "tariff/find_tariff_";
+const UPDATETARIFFBYID = BASEURL + "tariff/update_tariff";
+const DELETETARIFF = BASEURL + "tariff/delete_";
+const GETALLACTIVETARIFFSURL = BASEURL + "tariff/get_all_active_tariffs";
+const SIGNCONTRACTURL = BASEURL + "contracts/sign";
+const GETCONTRACTIDSANDPHONENUMBERS = BASEURL + "contracts/contract_ids_and_phone_numbers_of_user_"; 
+const GETCONTRACT = BASEURL + "contracts/get_contract";
+const DELETECONTRACT = BASEURL + "contracts/delete_contract_";
+const ISBLOCKEDURL = BASEURL + "users/is_blocked_user_"
+const CHANGEBLOCKUSER = BASEURL + "users/change_block_user_"
+const CHANGEBLOCKUSERBYADMIN = BASEURL + "manage/change_block_user_"
+const GETALLCONTRACTSUSERINFO = BASEURL + "manage/getAllContractsUserInfo"
+const FINDUSERBYPHONENUMBER = BASEURL + "manage/find_user_by_phone_number_"
 
 class Requests{
     //test
@@ -52,7 +58,7 @@ class Requests{
                 reloadPage();
             }
             else{
-                document.getElementById("wrongLogin").innerHTML = "Wrong Login or Password";
+                document.getElementById("wrongLogin").innerHTML = response.data.role;
                 document.getElementById("wrongLogin").className = "fadeIn";
             }
             localStorage.setItem("userId",response.data.id);
