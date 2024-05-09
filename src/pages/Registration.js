@@ -8,15 +8,47 @@ import Requests from "../HTTP/Requests";
 class Registration extends React.Component{
     constructor(props){
       super(props);
+      this.state = {
+        login:"",
+        password:""
+      }
       this.regMe = this.regMe.bind(this);
 
     }
 
     regMe(e){
       e.preventDefault(); //we need to asynchronously get the answer from server
+      if(!this.checkLoginAndPassword()){
+        return;
+      }
       Requests.postUserReg(document.getElementById("loginReg").value, document.getElementById("passwordReg").value,
       ()=>{window.location.href="/"}) //callback to go to our login page
     }
+
+
+checkLoginAndPassword = ()=>{
+  if(this.state.login.length===0){
+    document.getElementById("loginExists").innerHTML = "Login is empty";
+    document.getElementById("loginExists").className = "fadeIn"; // fade in animation!
+    return false;
+  }
+  if(this.state.password.length===0){
+    document.getElementById("loginExists").innerHTML = "Password is empty";
+    document.getElementById("loginExists").className = "fadeIn"; // fade in animation!
+    return false;
+  }
+  return true;
+}
+
+loginChange = (e) => {
+  let currentLogin = e.target.value;
+    this.setState({login:currentLogin});
+}
+
+passwordChange = (e) => {
+  let currentPassword = e.target.value;
+    this.setState({password:currentPassword});
+}
 
 
     render(){
@@ -37,8 +69,8 @@ class Registration extends React.Component{
               </div>
           
               <form>
-                <input type="text-a" id="loginReg" className="login fadeIn second" name="login" placeholder="login" required/>
-                <input type="password" id="passwordReg" className="password fadeIn third" name="password" placeholder="password" maxLength="10" required></input>
+                <input onChange={this.loginChange} type="text-a" id="loginReg" className="login fadeIn second" name="login" placeholder="login" required/>
+                <input onChange={this.passwordChange} type="password" id="passwordReg" className="password fadeIn third" name="password" placeholder="password" maxLength="10" required></input>
                 <div id="loginExists" className="hid">-</div>
                 <div>
                   <input type="submit" id="registr" className="logInOrReg fadeIn fourth" value="Register" onClick={this.regMe}/>

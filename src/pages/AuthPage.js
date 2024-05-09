@@ -28,10 +28,36 @@ class AuthPage extends React.Component{
 logMe(e){
     e.preventDefault(); //we need to asynchronously get the answer from server
     localStorage.setItem("userName",document.getElementById("login").value);
+    if(!this.checkLoginAndPassword()){
+      return;
+    }
     Requests.postUserLogIn(document.getElementById("login").value,document.getElementById("password").value,
     ()=>{window.location.reload();} //callback function reload to reload after we get our data
     );
-    
+}
+
+checkLoginAndPassword = ()=>{
+  if(this.state.login.length===0){
+    document.getElementById("wrongLogin").innerHTML = "Login is empty";
+    document.getElementById("wrongLogin").className = "fadeIn"; // fade in animation!
+    return false;
+  }
+  if(this.state.password.length===0){
+    document.getElementById("wrongLogin").innerHTML = "Password is empty";
+    document.getElementById("wrongLogin").className = "fadeIn"; // fade in animation!
+    return false;
+  }
+  return true;
+}
+
+loginChange = (e) => {
+  let currentLogin = e.target.value;
+    this.setState({login:currentLogin});
+}
+
+passwordChange = (e) => {
+  let currentPassword = e.target.value;
+    this.setState({password:currentPassword});
 }
 
     // render(){
@@ -74,8 +100,8 @@ logMe(e){
             </div>
         
             <form>
-              <input type="text-a" id="login" className="login fadeIn second" name="login" placeholder="login" required/>
-              <input type="password" id="password" className="password fadeIn third" name="password" placeholder="password" maxLength="10" required></input>
+              <input type="text-a" id="login" onChange={this.loginChange} className="login fadeIn second" name="login" placeholder="login" required/>
+              <input type="password" id="password" onChange={this.passwordChange} className="password fadeIn third" name="password" placeholder="password" maxLength="10" required></input>
               <div id="wrongLogin" className="hid">-</div>
               <div>
                 <input type="submit" id="logIn" className="logInOrReg fadeIn fourth" value="Login" onClick={this.logMe}/>
