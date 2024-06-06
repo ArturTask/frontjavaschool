@@ -2,13 +2,22 @@ import React from "react";
 import { Navigate } from "react-router-dom";
 import Requests from "../HTTP/Requests";
 import "../css/authPage.css"
-import Logo from "../images/Logo.png"
+import { useToasts } from 'react-toast-notifications'
+
+function withToast(Component) {
+  return function WrappedComponent(props) {
+    const toastFuncs = useToasts()
+    return <Component {...props} {...toastFuncs} />;
+  }
+}
+
 // import MainPage from "./MainPage";
 
 class AuthPage extends React.Component{
     constructor(props){
         super(props);
         this.state = {
+            addNotification:null,
             smth: "",
             id: "",
             role: "",
@@ -17,13 +26,16 @@ class AuthPage extends React.Component{
         };
         this.logMe = this.logMe.bind(this);
     }
+    
 
-// componentDidMount(){
-//     Requests.getData().then((response)=>{
-//         this.setState({smth: response.data});
-//     }
-//     );
-// }
+    componentDidMount () {
+      this.props.addToast('Hello Toast');
+    }
+
+
+showNotificationCallback = (message) => {
+  this.props.addToast(message);
+}
 
 logMe(e){
     e.preventDefault(); //we need to asynchronously get the answer from server
@@ -31,10 +43,17 @@ logMe(e){
     if(!this.checkLoginAndPassword()){
       return;
     }
-    Requests.postUserLogIn(document.getElementById("login").value,document.getElementById("password").value,
-    ()=>{window.location.reload();} //callback function reload to reload after we get our data
-    );
+    try{
+      Requests.postUserLogIn(document.getElementById("login").value,document.getElementById("password").value,
+      ()=>{window.location.reload();}, //callback function reload to reload after we get our data
+      this.showNotificationCallback
+     );
+    }
+    catch(ex){
+      console.log('djkhhwudhk')
+    }
 }
+
 
 checkLoginAndPassword = ()=>{
   if(this.state.login.length===0){
@@ -83,6 +102,7 @@ passwordChange = (e) => {
 
  
     return(
+      <>
         <div className="central fadeInDown">
             {/* left side */}
            <div id="ad" className="inline-div">
@@ -112,10 +132,11 @@ passwordChange = (e) => {
           </div>
 
         </div>
+        </>
       );
-}
+  }
 
 }
 
 
-export default AuthPage;
+export default withToast(AuthPage);

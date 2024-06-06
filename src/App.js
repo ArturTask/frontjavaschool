@@ -9,6 +9,7 @@ import AdminMainPage from './pages/AdminMainPage.js';
 import CustomerMainPage from './pages/CustomerMainPage.js';
 import Registration from './pages/Registration.js';
 import PersonalAccount from './pages/PersonalAccount';
+import { ToastProvider } from 'react-toast-notifications';
 
 
 
@@ -18,7 +19,15 @@ function App() {
 
   return (
     <Routes>
-      <Route path="/" element={<AuthPage />}></Route>
+      <Route path="/" element={
+      <ToastProvider
+        autoDismiss
+        autoDismissTimeout={6000}
+        placement="top-right"
+      >
+      <AuthPage />
+      </ToastProvider>}>
+      </Route>
       <Route path="/registr" element={<Registration/>}></Route>
       {/* <Route element={<AuthenticatedRoute/>}> */}
         <Route path='/adminMainPage' element={<AdminMainPage/>}/>

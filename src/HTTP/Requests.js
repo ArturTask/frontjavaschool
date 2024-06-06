@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { error } from 'jquery';
 const config = {
     headers: { 
         "Authorization": "Bearer " + localStorage.getItem("token") 
@@ -37,7 +38,7 @@ class Requests{
     }
 
     //AUTHORIZATION
-    postUserLogIn(login,password,reloadPage){
+    postUserLogIn(login,password,reloadPage, showNotificationCallback){
         const user = {
             id: null,
             login: login,
@@ -64,7 +65,13 @@ class Requests{
             localStorage.setItem("userId",response.data.id);
             localStorage.setItem("token",response.data.token);
             // reloadPage();
-        });
+            if(response.status==500){
+                console.log("fekjfeji")
+            }
+        }, (error)=>{
+            showNotificationCallback(error.response.data);
+        })
+        ;
     }
 
     postUserReg(login,password,goToLogin){
